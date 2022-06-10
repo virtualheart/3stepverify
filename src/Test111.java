@@ -29,11 +29,13 @@ public class Test111  extends JFrame implements ActionListener{
 String e="";
     public Test111(int i,String b) throws IOException {
        try{
-        Connection con;
-            String url = "jdbc:mysql://localhost:3306/security";
-            String driver = "com.mysql.jdbc.Driver";
-            Class.forName(driver);
-            con = DriverManager.getConnection(url, "root", "root");
+//        Connection con;
+//            String url = "jdbc:mysql://localhost:3306/security";
+//            String driver = "com.mysql.jdbc.Driver";
+//            Class.forName(driver);
+//            con = DriverManager.getConnection(url, "root", "root");
+            DBconnect co=new DBconnect();
+            Connection con=co.connect();
             smt = con.createStatement();
         
        this.e=b;

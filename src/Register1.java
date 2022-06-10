@@ -1,4 +1,3 @@
-
 import com.sun.activation.viewers.ImageViewer;
 import dataset.AesEncryption;
 import java.awt.Dimension;
@@ -81,9 +80,9 @@ String a2="";int id,c=0;
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximizedBounds(new java.awt.Rectangle(100, 100, 1500, 700));
+        setMaximizedBounds(new java.awt.Rectangle(1100, 700, 1100, 700));
         setMaximumSize(new java.awt.Dimension(1500, 700));
-        setMinimumSize(new java.awt.Dimension(1500, 700));
+        setMinimumSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(null);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -99,7 +98,7 @@ String a2="";int id,c=0;
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(130, 270, 80, 30);
+        jButton1.setBounds(130, 270, 84, 30);
 
         jButton2.setBackground(new java.awt.Color(0, 204, 204));
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -184,8 +183,11 @@ String a2="";int id,c=0;
 
     AesEncryption asc=new AesEncryption();
                   
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
+           // Class.forName("com.mysql.jdbc.Driver");
+           // Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
+                      
+            DBconnect co=new DBconnect();
+            Connection con=co.connect(); 
             Statement st=con.createStatement();
             Statement ob=con.createStatement();
             int s10 = 0, s11 = 0, s12 = 0,  cal11 = 0, cal12 = 0, cal13 = 0;

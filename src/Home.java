@@ -67,9 +67,9 @@ public class Home extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 204, 255));
-        setMaximizedBounds(new java.awt.Rectangle(100, 100, 2000, 900));
+        setMaximizedBounds(new java.awt.Rectangle(1100, 700, 1100, 700));
         setMaximumSize(new java.awt.Dimension(2000, 900));
-        setMinimumSize(new java.awt.Dimension(2000, 900));
+        setMinimumSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(null);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());

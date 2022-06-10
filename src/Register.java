@@ -84,6 +84,9 @@ public class Register extends javax.swing.JFrame {
         jPasswordField5 = new javax.swing.JPasswordField();
         jPasswordField6 = new javax.swing.JPasswordField();
         jPasswordField4 = new javax.swing.JPasswordField();
+        jButton11 = new javax.swing.JButton();
+        jNameField3 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -91,9 +94,8 @@ public class Register extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximizedBounds(new java.awt.Rectangle(100, 100, 1500, 700));
-        setMaximumSize(new java.awt.Dimension(1500, 700));
-        setMinimumSize(new java.awt.Dimension(1500, 700));
+        setMaximizedBounds(new java.awt.Rectangle(1100, 700, 1100, 700));
+        setMinimumSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(null);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -101,9 +103,9 @@ public class Register extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel2.setText("ACCOUNT NO");
+        jLabel2.setText("Name");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(10, 120, 120, 30);
+        jLabel2.setBounds(10, 110, 80, 30);
 
         jButton1.setBackground(new java.awt.Color(0, 204, 204));
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -184,12 +186,12 @@ public class Register extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jPasswordField1);
-        jPasswordField1.setBounds(150, 120, 330, 30);
+        jPasswordField1.setBounds(150, 160, 330, 30);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel4.setText("RETYPE   ACCOUNTNO");
+        jLabel4.setText("RETYPE ACCOUNT NO");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(10, 170, 150, 50);
+        jLabel4.setBounds(0, 190, 150, 50);
 
         jPasswordField3.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -202,7 +204,7 @@ public class Register extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jPasswordField3);
-        jPasswordField3.setBounds(150, 180, 330, 30);
+        jPasswordField3.setBounds(150, 200, 330, 30);
 
         jButton3.setText("VIEW");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -276,6 +278,26 @@ public class Register extends javax.swing.JFrame {
         jPanel1.add(jPasswordField4);
         jPasswordField4.setBounds(390, 290, 90, 30);
 
+        jButton11.setBackground(new java.awt.Color(51, 204, 255));
+        jButton11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton11.setText("Login");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton11);
+        jButton11.setBounds(160, 410, 320, 60);
+
+        jNameField3.setToolTipText("Name");
+        jPanel1.add(jNameField3);
+        jNameField3.setBounds(150, 110, 330, 30);
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel8.setText("ACCOUNT NO");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(10, 150, 120, 30);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(570, 90, 500, 540);
 
@@ -341,11 +363,16 @@ public class Register extends javax.swing.JFrame {
     AesEncryption asc=new AesEncryption();
    String status="Active",amt="5000";
               
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
+          //  Class.forName("com.mysql.jdbc.Driver");
+          //  Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
+          
+          
+            DBconnect co=new DBconnect();
+            Connection con=co.connect();
+            
             Statement st=con.createStatement();
             Statement ob=con.createStatement();
-      if((jPasswordField1.getText().equals(""))||(jPasswordField2.getText().equals(""))||(jPasswordField3.getText().equals(""))||(jPasswordField4.getText().equals(""))||(jPasswordField5.getText().equals(""))||(jTextField1.getText().equals(""))||(jTextField2.getText().equals(""))){
+      if((jPasswordField1.getText().equals(""))||(jPasswordField2.getText().equals(""))||(jPasswordField3.getText().equals(""))||(jPasswordField4.getText().equals(""))||(jPasswordField5.getText().equals(""))||(jTextField1.getText().equals(""))||(jTextField2.getText().equals(""))||(jNameField3.getText().equals(""))){
           
            
                 JOptionPane.showMessageDialog(null,"Please Enter All Values");
@@ -358,7 +385,7 @@ public class Register extends javax.swing.JFrame {
            this.setVisible(true);
                 JOptionPane.showMessageDialog(null,"Account number Already Exist");
             }else{
-                 bn=st.executeUpdate("insert into register values('"+asc.toEncrypt(jPasswordField1.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField2.getText().getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField5.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField6.getText().getBytes())+"','"+asc.toEncrypt(jTextField1.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField4.getText().getBytes())+"','"+asc.toEncrypt(status.getBytes())+"','"+asc.toEncrypt(amt.getBytes())+"','','','','','','','','','')");
+                 bn=st.executeUpdate("insert into register values('"+jNameField3.getText().toString()+"','"+asc.toEncrypt(jPasswordField1.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField2.getText().getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField5.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField6.getText().getBytes())+"','"+asc.toEncrypt(jTextField1.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField4.getText().getBytes())+"','"+asc.toEncrypt(status.getBytes())+"','"+asc.toEncrypt(amt.getBytes())+"','','','','','','','','','')");
             
             if(bn==1){
                 this.setVisible(false);
@@ -474,8 +501,13 @@ public class Register extends javax.swing.JFrame {
 
     AesEncryption asc=new AesEncryption();
                   
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
+           // Class.forName("com.mysql.jdbc.Driver");
+           //  Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
+           
+            
+            DBconnect co=new DBconnect();
+            Connection con=co.connect();
+            
             Statement st=con.createStatement();
             Statement ob=con.createStatement();
     
@@ -495,6 +527,14 @@ public class Register extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jPasswordField1FocusLost
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+
+        this.setVisible(false);
+        Home rs=new Home();
+        rs.setVisible(true);
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -533,9 +573,15 @@ public class Register extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -548,9 +594,11 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JTextField jNameField3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;

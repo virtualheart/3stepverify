@@ -38,16 +38,18 @@ import javax.swing.*;
            ArrayList a2 = new ArrayList();
        public ImageBuffer (BufferedImage image,String id,String w) {  
            try {
-            Connection con;
-            String url = "jdbc:mysql://localhost:3306/security";
-            String driver = "com.mysql.jdbc.Driver";
-            Class.forName(driver);
-            con = DriverManager.getConnection(url, "root", "root");
+//            Connection con;
+//            String url = "jdbc:mysql://localhost:3306/security";
+//            String driver = "com.mysql.jdbc.Driver";
+//            Class.forName(driver);
+//            con = DriverManager.getConnection(url, "root", "root");
+            DBconnect co=new DBconnect();
+            Connection con=co.connect();
             smt = con.createStatement();
         } catch (Exception e) {
             e.printStackTrace();
         }
-           this.image = image;  
+          this.image = image;  
           this.c=id;
           this.q=w;
          System.out.println(w);
@@ -282,14 +284,15 @@ import javax.swing.*;
         }
               int query=0;
               query=smt.executeUpdate("update register set imagepixelx= '"+d1+"', imagepixely='"+d4+"',imagepixelx1= '"+d2+"', imagepixely1='"+d5+"',imagepixelx2= '"+d3+"', imagepixely2='"+d6+"' where account='"+c+"'");
-            this.setVisible(false);
-            Home as=new Home();
-        as.setVisible(true);
+              this.setVisible(false);
+              
+              Home as=new Home();
+              as.setVisible(true);
         }
         }catch(Exception ex){
             
-        ex.printStackTrace();
-           
+          ex.printStackTrace();
+           this.setVisible(false);
         } 
       }  
     

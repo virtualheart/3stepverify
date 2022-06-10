@@ -19,8 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;  
 import javax.swing.*; 
-//import contour.FileRead;  
-//import org.eclipse.swt.graphics.GC;  
      
    public class ImageBuffer1 extends JPanel implements MouseListener, MouseMotionListener{  
        int mouse_x, mouse_y, x,y;   
@@ -43,25 +41,27 @@ import javax.swing.*;
        int amt_input=0;  
        int radius =20; 
        String q=null;
-     Statement smt;
+       Statement smt;
   
           ArrayList a1 = new ArrayList();
            ArrayList a2 = new ArrayList();
        public ImageBuffer1 (BufferedImage image,String id,String w) {  
            try {
-            Connection con;
-            String url = "jdbc:mysql://localhost:3306/security";
-            String driver = "com.mysql.jdbc.Driver";
-            Class.forName(driver);
-            con = DriverManager.getConnection(url, "root", "root");
+//            Connection con;
+//            String url = "jdbc:mysql://localhost:3306/security";
+//            String driver = "com.mysql.jdbc.Driver";
+//            Class.forName(driver);
+//            con = DriverManager.getConnection(url, "root", "root");
+            DBconnect co=new DBconnect();
+            Connection con=co.connect();
             smt = con.createStatement();
         } catch (Exception e) {
             e.printStackTrace();
         }
-           this.image = image;  
+          this.image = image;  
           this.c=id;
           this.q=w;
-         System.out.println(w);
+          System.out.println(w);
            size.setSize(image.getWidth(), image.getHeight());  
            this.addMouseListener(this);  
            this.addMouseMotionListener(this);  
@@ -80,7 +80,7 @@ import javax.swing.*;
            //g.drawString("User at coordinate : (" + mouse_x + "," + mouse_y + ")", mouse_x, mouse_y);  
            g.setColor(Color.blue);  
            g.fillOval(mouse_x, mouse_y, 10, 10);  
-          g.drawOval(mouse_x, mouse_y, 10, 10);  
+           g.drawOval(mouse_x, mouse_y, 10, 10);  
        }  
        public static void main(String[] args) throws IOException {  
              
@@ -110,7 +110,7 @@ import javax.swing.*;
        mouse_x = e.getX();  
        mouse_y = e.getY();  
        modifierKeys = "";  
-     if (e.isShiftDown())  
+       if (e.isShiftDown())  
           modifierKeys += "Shift  ";  
        if (e.isControlDown())  
           modifierKeys += "Control  ";  
@@ -203,17 +203,16 @@ import javax.swing.*;
 
             if (((r <= d1) || (t <= d1)) && ((h <= d4) || (s <= d4)) && ((r1 <= d2) || (t1 <= d2)) && ((h2 <= d5) || (g1 <= d5)) &&((r2 <= d3) || (t2 <= d3)) && ((h3 <= d6) || (g2 <= d6))  ) {
 
-                JOptionPane.showMessageDialog(this, "Login Successfully!!!");
-                 this.setVisible(false);atm as=new atm(c);
-            as.setVisible(true);
-             
-               
+                 JOptionPane.showMessageDialog(this, "Login Successfully!!!");
+                 this.setVisible(false);   
+                 atm as=new atm(c);
+                 as.setVisible(true);               
             
                         
             } else {
                 JOptionPane.showMessageDialog(this, "Access Dined !!!");
                    Home as=new Home();
-            as.setVisible(true);
+                  as.setVisible(true);
             }
         
 

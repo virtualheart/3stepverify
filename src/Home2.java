@@ -223,7 +223,7 @@ String a2="";
             if((f==1)){
            
                 JOptionPane.showMessageDialog(null,"Login Successfully");
-             atm rs11=new atm(a2);
+                atm rs11=new atm(a2);
                 rs11.setVisible(true);
             }else{
            //     send(email, "Security Alert");

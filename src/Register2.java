@@ -184,8 +184,11 @@ String a2="";
 
     AesEncryption asc=new AesEncryption();
                    AESDecryption dsc=new AESDecryption();
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
+            //Class.forName("com.mysql.jdbc.Driver");
+            //Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
+                        
+            DBconnect co=new DBconnect();
+            Connection con=co.connect();
             Statement st=con.createStatement();
             Statement ob=con.createStatement();
             int s10 = 0, s11 = 0, s12 = 0,  cal11 = 0, cal12 = 0, cal13 = 0;

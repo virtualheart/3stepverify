@@ -41,11 +41,15 @@ public class ImageBuffer_1 extends JPanel implements MouseListener, MouseMotionL
 
     public ImageBuffer_1(BufferedImage image, String id) {
         try {
-            Connection con;
-            String url = "jdbc:mysql://localhost:3306/imagepassword";
-            String driver = "com.mysql.jdbc.Driver";
-            Class.forName(driver);
-            con = DriverManager.getConnection(url, "root", "root");
+//            Connection con;
+//            String url = "jdbc:mysql://localhost:3306/imagepassword";
+//            String driver = "com.mysql.jdbc.Driver";
+//            Class.forName(driver);
+//            con = DriverManager.getConnection(url, "root", "root");
+
+            DBconnect co=new DBconnect();
+            Connection con=co.connect();
+            
             smt = con.createStatement();
         } catch (Exception e) {
             e.printStackTrace();

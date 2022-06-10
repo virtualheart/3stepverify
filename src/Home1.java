@@ -86,7 +86,7 @@ String a2="";
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(130, 270, 80, 30);
+        jButton1.setBounds(130, 270, 90, 30);
 
         jButton2.setBackground(new java.awt.Color(0, 204, 204));
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -153,8 +153,12 @@ String a2="";
                     v1 = randomGenerator.nextInt(100000);
 
                 }
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
+         //   Class.forName("com.mysql.jdbc.Driver");
+         //   Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
+                    
+            DBconnect co=new DBconnect();
+            Connection con=co.connect();  
+            
             Statement st=con.createStatement();
             Statement ob=con.createStatement();
             
