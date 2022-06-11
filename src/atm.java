@@ -38,6 +38,7 @@ String a2="";
         jButton4 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -57,14 +58,14 @@ String a2="";
 
         jButton4.setBackground(new java.awt.Color(51, 204, 255));
         jButton4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton4.setText("FUND TRANSFER");
+        jButton4.setText("Personal info");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
         jPanel1.add(jButton4);
-        jButton4.setBounds(200, 50, 320, 60);
+        jButton4.setBounds(200, 40, 320, 60);
 
         jButton6.setBackground(new java.awt.Color(51, 204, 255));
         jButton6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -75,7 +76,7 @@ String a2="";
             }
         });
         jPanel1.add(jButton6);
-        jButton6.setBounds(200, 150, 320, 60);
+        jButton6.setBounds(200, 180, 320, 60);
 
         jButton7.setBackground(new java.awt.Color(51, 204, 255));
         jButton7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -87,6 +88,17 @@ String a2="";
         });
         jPanel1.add(jButton7);
         jButton7.setBounds(200, 250, 320, 60);
+
+        jButton8.setBackground(new java.awt.Color(51, 204, 255));
+        jButton8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton8.setText("FUND TRANSFER");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton8);
+        jButton8.setBounds(200, 110, 320, 60);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(230, 160, 660, 350);
@@ -100,7 +112,7 @@ String a2="";
             }
         });
         getContentPane().add(jButton5);
-        jButton5.setBounds(910, 110, 90, 40);
+        jButton5.setBounds(910, 110, 100, 40);
 
         jLabel17.setBackground(new java.awt.Color(0, 204, 204));
         jLabel17.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -140,8 +152,9 @@ String a2="";
         // TODO add your handling code here:
           
         this.setVisible(false);
-        withdraw rs=new withdraw(a2);
-        rs.setVisible(true);
+      //  withdraw rs=new withdraw(a2);
+      //  rs.setVisible(true);
+      
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -150,6 +163,10 @@ String a2="";
         deposit rs=new deposit(a2);
         rs.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,6 +208,7 @@ String a2="";
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

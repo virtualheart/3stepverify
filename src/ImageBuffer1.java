@@ -28,8 +28,8 @@ import javax.swing.*;
        String c="";
        String s3 = null;
     int s4 = 0;
-    int s5, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16 = 0;
-    String s6 = null;
+    int s5, s7, s8, s9, s10, s11, s12, s13, s14, s15 = 0;
+    String s6,s16 = null;
     int r, r1, r2, r3, r4, r5, r6, r7, r8 = 0;
     int t, t1, t2, t3, t4, t5, t6, t7, t8 = 0;
     String e = null;
@@ -50,13 +50,9 @@ import javax.swing.*;
           
        public ImageBuffer1 (BufferedImage image,String id,String w) {  
            try {
-//            Connection con;
-//            String url = "jdbc:mysql://localhost:3306/security";
-//            String driver = "com.mysql.jdbc.Driver";
-//            Class.forName(driver);
-//            con = DriverManager.getConnection(url, "root", "root");
-            DBconnect co=new DBconnect();
-            Connection con=co.connect();
+
+               DBconnect co=new DBconnect();
+               Connection con=co.connect();
             
             smt = con.createStatement();
             
@@ -82,7 +78,7 @@ import javax.swing.*;
            g.setColor(Color.black);  
            g.drawString("ID : 00:24:c3:31:2b:e0", 730, 175);  
            g.setColor(Color.red);  
-           //g.drawString("User at coordinate : (" + mouse_x + "," + mouse_y + ")", mouse_x, mouse_y);  
+           g.drawString("User at coordinate : (" + mouse_x + "," + mouse_y + ")", mouse_x, mouse_y);  
            g.setColor(Color.blue);  
            g.fillOval(mouse_x, mouse_y, 10, 10);  
            g.drawOval(mouse_x, mouse_y, 10, 10);  
@@ -143,6 +139,8 @@ import javax.swing.*;
         try{
             int radius = 20;
           
+        amt_input++;
+
         mouse_x = e.getX();
         mouse_y = e.getY();
         System.out.println("mouse clicked " + amt_input);
@@ -151,10 +149,9 @@ import javax.swing.*;
         a1.add( mouse_x);
         a2.add( mouse_y);
         
-        amt_input++;
-        
-        if(amt_input==3)
-        {
+                
+        if(amt_input==3) {
+
               for (int i = 0; i < 3; i++) {
             //System.out.println(c.get(i));
 
@@ -170,13 +167,20 @@ import javax.swing.*;
             ResultSet rs = null;
             
             AesEncryption asc=new AesEncryption();
+            String cb = asc.toEncrypt(c.getBytes()); 
 
-            String query = "select * from register where account='" + asc.toEncrypt(c.getBytes()) + "'";
+            String query = "select * from register where account='" + cb + "'";
             System.out.println(query);
-            rs = smt.executeQuery(query);
+            try{
+                rs = smt.executeQuery(query);
+                
+            } catch(SQLException b) {
+                b.getMessage();
+            }
             while (rs.next()) {
                 
-                s16=rs.getInt("account");
+                s16=rs.getString("account");
+                
                              
                 s4 = rs.getInt("imagepixelx");
                 s5 = rs.getInt("imagepixely");
@@ -187,23 +191,22 @@ import javax.swing.*;
            
             }
 
-            r = s4 + 5;
-            t = s4 - 5;
-            r1 = s7 + 5;
-            t1 = s7 - 5;
-            r2 = s9 + 5;
-            t2 = s9 - 5;
-            r3 = s11 + 5;
-            t3 = s11 - 5;
-            r4 = s13 + 5;
-            t4 = s13 - 5;
-            h = s5 + 5;
-            s = s5 - 5;
-            h2 = s8 + 5;
-            g1 = s8 - 5;
-            h3 = s10 + 5;
-            g2 = s10 - 5;
-           
+            r = s4 + 10;
+            t = s4 - 10;
+            r1 = s7 + 10;
+            t1 = s7 - 10;
+            r2 = s9 + 10;
+            t2 = s9 - 10;
+            r3 = s11 + 10;
+            t3 = s11 - 10;
+            r4 = s13 + 10;
+            t4 = s13 - 10;
+            h = s5 + 10;
+            s = s5 - 10;
+            h2 = s8 + 10;
+            g1 = s8 - 10;
+            h3 = s10 + 10;
+            g2 = s10 - 10;  
 
             if (((r <= d1) || (t <= d1)) && ((h <= d4) || (s <= d4)) && ((r1 <= d2) || (t1 <= d2)) && ((h2 <= d5) || (g1 <= d5)) &&((r2 <= d3) || (t2 <= d3)) && ((h3 <= d6) || (g2 <= d6))  ) {
 
@@ -219,21 +222,29 @@ import javax.swing.*;
                   a1.clear();
                   a2.clear();
                   
-                  //Home as=new Home();
-                  //as.setVisible(true);
+                 // this.setVisible(false);
+
             }
         
-
          
-            
-        } else if(amt_input>3){
+        } else if(amt_input>=3){
             amt_input=0;
-        }
+            JOptionPane.showMessageDialog(this, "Try agion...!!!");
+                             
+            a1.clear();
+            a2.clear();
+            
+           // this.setVisible(false);
+
+        } 
+        
         }catch(Exception ex){
             
              ex.printStackTrace();
            
         } 
+        
+
       }  
     
       @Override  

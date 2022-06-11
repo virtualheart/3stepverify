@@ -169,7 +169,7 @@ String a2="";
              Date date = new Date();
 SimpleDateFormat sdf;
 
-sdf = new SimpleDateFormat("yyyy-MM-dd");
+ sdf = new SimpleDateFormat("yyyy-MM-dd");
  String a15=sdf.format(date);  
            String transfer="WITHDRAWN";
              ResultSet rs1=st.executeQuery("select * from register where account='"+a2+"'");
