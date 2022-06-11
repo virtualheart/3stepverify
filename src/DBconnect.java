@@ -1,6 +1,7 @@
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +26,8 @@ public class DBconnect {
 					
 		} catch(Exception e) {
 			e.printStackTrace();
+                        JOptionPane.showMessageDialog(null,"Please Check the Database");
+
 		}
 		
 		return null;

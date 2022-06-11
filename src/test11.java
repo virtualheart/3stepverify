@@ -1,7 +1,3 @@
-
-
-
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -113,6 +109,7 @@ public class test11 implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             f.setVisible(false);
+            f.dispose();
             new Test111(Integer.parseInt(e.getActionCommand()),c);
             
             System.out.println(e.getActionCommand());

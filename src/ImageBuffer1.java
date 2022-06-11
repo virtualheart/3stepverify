@@ -1,3 +1,4 @@
+import dataset.AesEncryption;
 import java.awt.*;  
 import java.awt.event.ActionEvent;  
 import java.awt.event.ActionListener;  
@@ -24,7 +25,8 @@ import javax.swing.*;
        int mouse_x, mouse_y, x,y;   
        String modifierKeys = "";   
        BufferedImage image;  
-       String c="";  String s3 = null;
+       String c="";
+       String s3 = null;
     int s4 = 0;
     int s5, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16 = 0;
     String s6 = null;
@@ -44,7 +46,8 @@ import javax.swing.*;
        Statement smt;
   
           ArrayList a1 = new ArrayList();
-           ArrayList a2 = new ArrayList();
+          ArrayList a2 = new ArrayList();
+          
        public ImageBuffer1 (BufferedImage image,String id,String w) {  
            try {
 //            Connection con;
@@ -54,7 +57,9 @@ import javax.swing.*;
 //            con = DriverManager.getConnection(url, "root", "root");
             DBconnect co=new DBconnect();
             Connection con=co.connect();
+            
             smt = con.createStatement();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,7 +69,7 @@ import javax.swing.*;
           System.out.println(w);
            size.setSize(image.getWidth(), image.getHeight());  
            this.addMouseListener(this);  
-           this.addMouseMotionListener(this);  
+           this.addMouseMotionListener(this);
              
       }  
          
@@ -131,6 +136,7 @@ import javax.swing.*;
       g.setColor(Color.BLACK);  
       g.fillOval(x - radius, y - radius, 2 * radius, 2 * radius);  
       }  
+     
      @Override  
       public void mouseClicked(MouseEvent e  ) {  
       
@@ -144,34 +150,32 @@ import javax.swing.*;
         System.out.println(c);
         a1.add( mouse_x);
         a2.add( mouse_y);
-         
-         
-       
-       
+        
         amt_input++;
-
-         
-                 
-        if(amt_input<=3)
+        
+        if(amt_input==3)
         {
               for (int i = 0; i < 3; i++) {
             //System.out.println(c.get(i));
 
-         d1 = Integer.parseInt(a1.get(0).toString());
-            d2 = Integer.parseInt( a1.get(1).toString());
+            d1 = Integer.parseInt(a1.get(0).toString());
+            d2 = Integer.parseInt(a1.get(1).toString());
             d3 = Integer.parseInt(a1.get(2).toString());
-           
 
             d4 = Integer.parseInt (a2.get(0).toString());
             d5 = Integer.parseInt (a2.get(1).toString());
             d6 = Integer.parseInt (a2.get(2).toString());
             
-        }
-               ResultSet rs = null;
-    
-            String query = "select * from register where account='" + c + "'";
+        } 
+            ResultSet rs = null;
+            
+            AesEncryption asc=new AesEncryption();
+
+            String query = "select * from register where account='" + asc.toEncrypt(c.getBytes()) + "'";
+            System.out.println(query);
             rs = smt.executeQuery(query);
             while (rs.next()) {
+                
                 s16=rs.getInt("account");
                              
                 s4 = rs.getInt("imagepixelx");
@@ -203,25 +207,31 @@ import javax.swing.*;
 
             if (((r <= d1) || (t <= d1)) && ((h <= d4) || (s <= d4)) && ((r1 <= d2) || (t1 <= d2)) && ((h2 <= d5) || (g1 <= d5)) &&((r2 <= d3) || (t2 <= d3)) && ((h3 <= d6) || (g2 <= d6))  ) {
 
-                 JOptionPane.showMessageDialog(this, "Login Successfully!!!");
+                 JOptionPane.showMessageDialog(this, "Login Successfully...!!!");
                  this.setVisible(false);   
                  atm as=new atm(c);
                  as.setVisible(true);               
             
                         
             } else {
-                JOptionPane.showMessageDialog(this, "Access Dined !!!");
-                   Home as=new Home();
-                  as.setVisible(true);
+                  JOptionPane.showMessageDialog(this, "Access Dined !!!");
+                  
+                  a1.clear();
+                  a2.clear();
+                  
+                  //Home as=new Home();
+                  //as.setVisible(true);
             }
         
 
          
             
+        } else if(amt_input>3){
+            amt_input=0;
         }
         }catch(Exception ex){
             
-        ex.printStackTrace();
+             ex.printStackTrace();
            
         } 
       }  

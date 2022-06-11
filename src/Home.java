@@ -225,10 +225,7 @@ public class Home extends javax.swing.JFrame {
             Statement ob=con.createStatement();
          if((jPasswordField1.getText().equals(""))||(jPasswordField2.getText().equals(""))||(jPasswordField3.getText().equals(""))||(jPasswordField4.getText().equals(""))||(jPasswordField5.getText().equals(""))||(jTextField1.getText().equals(""))||(jTextField2.getText().equals(""))){
           
-           
                 JOptionPane.showMessageDialog(null,"Please Enter All Values");
-               
-             
           
          }else{
              
@@ -289,13 +286,13 @@ public class Home extends javax.swing.JFrame {
         jPasswordField2.setText("");
         jTextField2.setText("");
         jPasswordField1.setText("");
-         jTextField1.setText("");
+        jTextField1.setText("");
         jPasswordField3.setText("");
-            jPasswordField4.setText("");
+        jPasswordField4.setText("");
         jPasswordField5.setText("");
-           this.setVisible(false);
+          this.setVisible(false);
           Home rs11=new Home();
-                rs11.setVisible(true);
+          rs11.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jPasswordField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField2ActionPerformed

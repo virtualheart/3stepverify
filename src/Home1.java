@@ -167,13 +167,15 @@ String a2="";
            }else{
                    ResultSet rs=st.executeQuery("select * from register where account='"+asc.toEncrypt(a2.getBytes())+"' and ans='"+asc.toEncrypt(jTextField1.getText().getBytes())+"' and ques='"+asc.toEncrypt(jTextField3.getText().getBytes())+"'  ");
             if(rs.next()){
-            v=1;
+               v=1;
+            } else{
+                v=0;
             }
                   
             if((v==1)){
            
                 JOptionPane.showMessageDialog(null,"Login Successfully");
-         new test11(a2);
+                new test11(a2);
               
             }else{
            //     send(email, "Security Alert");
