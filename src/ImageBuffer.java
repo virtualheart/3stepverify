@@ -1,22 +1,12 @@
 import java.awt.*;  
-import java.awt.event.ActionEvent;  
-import java.awt.event.ActionListener;  
 import java.awt.event.MouseEvent;  
 import java.awt.event.MouseListener;  
 import java.awt.event.MouseMotionListener;  
-import java.awt.event.WindowAdapter;  
-import java.awt.event.WindowEvent;  
 import java.awt.image.BufferedImage;  
 import java.io.*;  
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;  
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;  
 import javax.swing.*; 
 //import contour.FileRead;  
 //import org.eclipse.swt.graphics.GC;  
@@ -32,27 +22,25 @@ import javax.swing.*;
        int amt_input=0;  
        int radius =20; 
        String q=null;
+       JFrame fram;
      Statement smt;
      String s,s1;
           ArrayList a1 = new ArrayList();
            ArrayList a2 = new ArrayList();
-       public ImageBuffer (BufferedImage image,String id,String w) {  
+       public ImageBuffer (BufferedImage image,String id,String w,JFrame fram) {  
            try {
-//            Connection con;
-//            String url = "jdbc:mysql://localhost:3306/security";
-//            String driver = "com.mysql.jdbc.Driver";
-//            Class.forName(driver);
-//            con = DriverManager.getConnection(url, "root", "root");
-            DBconnect co=new DBconnect();
-            Connection con=co.connect();
-            smt = con.createStatement();
+
+               DBconnect co=new DBconnect();
+               Connection con=co.connect();
+               smt = con.createStatement();
         } catch (Exception e) {
             e.printStackTrace();
         }
           this.image = image;  
           this.c=id;
           this.q=w;
-         System.out.println(w);
+          this.fram=fram;
+          System.out.println(w);
            size.setSize(image.getWidth(), image.getHeight());  
            this.addMouseListener(this);  
            this.addMouseMotionListener(this);  
@@ -267,12 +255,12 @@ import javax.swing.*;
 
          
                  
-        if(amt_input<=3)
+        if(amt_input==3)
         {
               for (int i = 0; i < 2; i++) {
             //System.out.println(c.get(i));
 
-         d1 = Integer.parseInt(a1.get(0).toString());
+            d1 = Integer.parseInt(a1.get(0).toString());
             d2 = Integer.parseInt( a1.get(1).toString());
             d3 = Integer.parseInt(a1.get(2).toString());
            
@@ -284,15 +272,25 @@ import javax.swing.*;
         }
               int query=0;
               query=smt.executeUpdate("update register set imagepixelx= '"+d1+"', imagepixely='"+d4+"',imagepixelx1= '"+d2+"', imagepixely1='"+d5+"',imagepixelx2= '"+d3+"', imagepixely2='"+d6+"' where account='"+c+"'");
+              
               this.setVisible(false);
+              this.fram.dispose();
               
               Home as=new Home();
               as.setVisible(true);
-        }
+        }else if(amt_input>=3){
+            amt_input=0;
+            JOptionPane.showMessageDialog(this, "Try agion...!!!");
+                             
+            a1.clear();
+            a2.clear();
+            
+           // this.setVisible(false);
+
+        } 
         }catch(Exception ex){
             
           ex.printStackTrace();
-           this.setVisible(false);
         } 
       }  
     

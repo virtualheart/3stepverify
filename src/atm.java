@@ -1,10 +1,3 @@
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -23,6 +16,7 @@ String a2="";
     public atm(String a1) {
         a2=a1;
         initComponents();
+        
     }
 
     /**
@@ -136,14 +130,17 @@ String a2="";
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-         this.setVisible(false);
-        fund rs=new fund(a2);
+        // this.setVisible(false);
+        // this.dispose();
+        Personal_info rs=new Personal_info(a2);
         rs.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
          this.setVisible(false);
+         this.dispose();
+         
         Home rs=new Home();
         rs.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -152,20 +149,29 @@ String a2="";
         // TODO add your handling code here:
           
         this.setVisible(false);
-      //  withdraw rs=new withdraw(a2);
-      //  rs.setVisible(true);
+        this.dispose();
+
+        withdraw rs=new withdraw(a2);
+        rs.setVisible(true);
       
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
          this.setVisible(false);
+         this.dispose();
+
         deposit rs=new deposit(a2);
         rs.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        this.dispose();
+
+        fund rs=new fund(a2);
+        rs.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**

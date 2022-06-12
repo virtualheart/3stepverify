@@ -11,13 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
-import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -60,6 +56,7 @@ String e=null;
             //ImageIcon icon = new ImageIcon(scaledImage);
             //label = new JLabel("", icon, JLabel.CENTER);
             f.setVisible(true);
+
         }
         //label = new JLabel("", image, JLabel.CENTER);
         

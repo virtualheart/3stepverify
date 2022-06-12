@@ -151,8 +151,11 @@ String a2="";
        AesEncryption asc=new AesEncryption();
           AESDecryption dsc=new AESDecryption();
           int v=0,v1=0,v2=0,v3=0,v4=0,v5=0,v6=0;
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
+       
+            DBconnect co=new DBconnect();
+            Connection con=co.connect();
+
+            
             Statement st=con.createStatement();
             Statement st1=con.createStatement();
             Statement st2=con.createStatement();
@@ -207,8 +210,9 @@ sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
         atm rs11=new atm(a2);
-                rs11.setVisible(true);
+        rs11.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

@@ -12,13 +12,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -55,7 +52,7 @@ String e="";
       int query=0;
         ResultSet rs=smt.executeQuery("select * from register where image= '"+i+"' and account='"+b+"'");
            if(rs!=null){
-                  ImageBuffer1 im=new ImageBuffer1(bi,e,s);
+                  ImageBuffer1 im=new ImageBuffer1(bi,e,s,f);
       //  panel.add(label);
         //panel.add(button);
         f.setContentPane(im);
@@ -69,7 +66,9 @@ String e="";
             //ImageIcon icon = new ImageIcon(scaledImage);
             //label = new JLabel("", icon, JLabel.CENTER);
             f.setVisible(true);
+            
         } 
+        
            }else{
                 this.setVisible(false);
                 JOptionPane.showMessageDialog(null,"Login Failed...!");
@@ -87,12 +86,10 @@ String e="";
        }
         
     }
-    
+
     
     public void actionPerformed(ActionEvent e) {
      
-       
-       
         System.out.println(e.getActionCommand());
     }
 }

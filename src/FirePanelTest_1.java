@@ -5,14 +5,13 @@
  * and open the template in the editor.
  */
 
-
+import consents.consent;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
 
 /**
  *
@@ -39,8 +38,14 @@ public class FirePanelTest_1
         panel.add(jLabel);
         frame.getContentPane().add(panel, BorderLayout.NORTH);
         frame.getContentPane().add(new FireworkPanel(), BorderLayout.CENTER);
+        consent c = new consent();
+        frame.setTitle(c.appname);
         frame.setVisible(true);
 
 
+    }
+
+    private void setTitle(String security_App) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

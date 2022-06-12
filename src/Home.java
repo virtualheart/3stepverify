@@ -1,19 +1,8 @@
+import consents.consent;
 import dataset.AesEncryption;
-import java.io.File;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Properties;
-import java.util.Random;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /*
@@ -33,6 +22,10 @@ public class Home extends javax.swing.JFrame {
      */
     public Home() {
         initComponents();
+        consent c = new consent();
+
+        this.setTitle(c.appname);
+
     }
 
     /**
@@ -213,6 +206,7 @@ public class Home extends javax.swing.JFrame {
       try{
               AesEncryption asc=new AesEncryption();
               String status="Active";
+
            int v=0;
             
             //Class.forName("com.mysql.jdbc.Driver");
@@ -362,6 +356,7 @@ public class Home extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Home().setVisible(true);
+                
             }
         });
     }

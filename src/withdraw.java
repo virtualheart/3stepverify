@@ -20,7 +20,8 @@ import javax.swing.JOptionPane;
  * @author PERUMAL
  */
 public class withdraw extends javax.swing.JFrame {
-String a2="";
+    
+     String a2="";
 
     /**
      * Creates new form Register
@@ -119,7 +120,7 @@ String a2="";
             }
         });
         getContentPane().add(jButton5);
-        jButton5.setBounds(890, 110, 90, 40);
+        jButton5.setBounds(890, 110, 100, 40);
 
         jButton6.setBackground(new java.awt.Color(51, 204, 255));
         jButton6.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -154,7 +155,7 @@ String a2="";
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       try{
-       AesEncryption asc=new AesEncryption();
+          AesEncryption asc=new AesEncryption();
           AESDecryption dsc=new AESDecryption();
           int v=0,v1=0,v2=0,v3=0,v4=0,v5=0;
             //Class.forName("com.mysql.jdbc.Driver");
@@ -218,7 +219,7 @@ SimpleDateFormat sdf;
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-           this.setVisible(false);
+           this.dispose();
               
                 withdraw rs11=new withdraw(a2);
                 rs11.setVisible(true);
@@ -226,8 +227,9 @@ SimpleDateFormat sdf;
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
         atm rs11=new atm(a2);
-                rs11.setVisible(true);
+        rs11.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

@@ -1,24 +1,15 @@
 import dataset.AesEncryption;
 import java.awt.*;  
-import java.awt.event.ActionEvent;  
-import java.awt.event.ActionListener;  
 import java.awt.event.MouseEvent;  
 import java.awt.event.MouseListener;  
 import java.awt.event.MouseMotionListener;  
-import java.awt.event.WindowAdapter;  
-import java.awt.event.WindowEvent;  
 import java.awt.image.BufferedImage;  
 import java.io.*;  
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;  
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;  
 import javax.swing.*; 
      
    public class ImageBuffer1 extends JPanel implements MouseListener, MouseMotionListener{  
@@ -29,7 +20,7 @@ import javax.swing.*;
        String s3 = null;
     int s4 = 0;
     int s5, s7, s8, s9, s10, s11, s12, s13, s14, s15 = 0;
-    String s6,s16 = null;
+    String s6,s16,simg = null;
     int r, r1, r2, r3, r4, r5, r6, r7, r8 = 0;
     int t, t1, t2, t3, t4, t5, t6, t7, t8 = 0;
     String e = null;
@@ -44,17 +35,18 @@ import javax.swing.*;
        int radius =20; 
        String q=null;
        Statement smt;
+       JFrame fram;
   
           ArrayList a1 = new ArrayList();
           ArrayList a2 = new ArrayList();
           
-       public ImageBuffer1 (BufferedImage image,String id,String w) {  
+       public ImageBuffer1 (BufferedImage image,String id,String w,JFrame fram) {  
            try {
 
                DBconnect co=new DBconnect();
                Connection con=co.connect();
             
-            smt = con.createStatement();
+               smt = con.createStatement();
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,6 +54,7 @@ import javax.swing.*;
           this.image = image;  
           this.c=id;
           this.q=w;
+          this.fram=fram;
           System.out.println(w);
            size.setSize(image.getWidth(), image.getHeight());  
            this.addMouseListener(this);  
@@ -78,7 +71,7 @@ import javax.swing.*;
            g.setColor(Color.black);  
            g.drawString("ID : 00:24:c3:31:2b:e0", 730, 175);  
            g.setColor(Color.red);  
-           g.drawString("User at coordinate : (" + mouse_x + "," + mouse_y + ")", mouse_x, mouse_y);  
+           //g.drawString("User at coordinate : (" + mouse_x + "," + mouse_y + ")", mouse_x, mouse_y);  
            g.setColor(Color.blue);  
            g.fillOval(mouse_x, mouse_y, 10, 10);  
            g.drawOval(mouse_x, mouse_y, 10, 10);  
@@ -180,7 +173,7 @@ import javax.swing.*;
             while (rs.next()) {
                 
                 s16=rs.getString("account");
-                
+                simg=rs.getString("image");
                              
                 s4 = rs.getInt("imagepixelx");
                 s5 = rs.getInt("imagepixely");
@@ -207,18 +200,21 @@ import javax.swing.*;
             g1 = s8 - 10;
             h3 = s10 + 10;
             g2 = s10 - 10;  
+            
+            System.out.println(simg);
 
-            if (((r <= d1) || (t <= d1)) && ((h <= d4) || (s <= d4)) && ((r1 <= d2) || (t1 <= d2)) && ((h2 <= d5) || (g1 <= d5)) &&((r2 <= d3) || (t2 <= d3)) && ((h3 <= d6) || (g2 <= d6))  ) {
+            if (((r <= d1) || (t <= d1)) && ((h <= d4) || (s <= d4)) && ((r1 <= d2) || (t1 <= d2)) && ((h2 <= d5) || (g1 <= d5)) &&((r2 <= d3) || (t2 <= d3)) && ((h3 <= d6) || (g2 <= d6))) {
 
                  JOptionPane.showMessageDialog(this, "Login Successfully...!!!");
-                 this.setVisible(false);   
+                 this.setVisible(false); 
+                 this.fram.dispose();
                  atm as=new atm(c);
-                 as.setVisible(true);               
-            
-                        
+                 as.setVisible(true);
             } else {
                   JOptionPane.showMessageDialog(this, "Access Dined !!!");
                   
+                  amt_input=0;
+
                   a1.clear();
                   a2.clear();
                   
@@ -227,15 +223,6 @@ import javax.swing.*;
             }
         
          
-        } else if(amt_input>=3){
-            amt_input=0;
-            JOptionPane.showMessageDialog(this, "Try agion...!!!");
-                             
-            a1.clear();
-            a2.clear();
-            
-           // this.setVisible(false);
-
         } 
         
         }catch(Exception ex){
@@ -286,7 +273,7 @@ import javax.swing.*;
             setInfo(e);  
             
       }  
-    
+      
         
   }  
         

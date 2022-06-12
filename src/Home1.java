@@ -1,19 +1,9 @@
+import consents.consent;
 import dataset.AesEncryption;
-import java.io.File;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Properties;
 import java.util.Random;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /*
@@ -34,6 +24,9 @@ String a2="";
     public Home1(String a1) {
          a2=a1;
         initComponents();
+        
+        consent c = new consent();
+        this.setTitle(c.appname);
     }
 
     /**
@@ -153,9 +146,7 @@ String a2="";
                     v1 = randomGenerator.nextInt(100000);
 
                 }
-         //   Class.forName("com.mysql.jdbc.Driver");
-         //   Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
-                    
+
             DBconnect co=new DBconnect();
             Connection con=co.connect();  
             
@@ -176,6 +167,8 @@ String a2="";
            
                 JOptionPane.showMessageDialog(null,"Login Successfully");
                 new test11(a2);
+                this.setVisible(false);
+                this.dispose();
               
             }else{
            //     send(email, "Security Alert");

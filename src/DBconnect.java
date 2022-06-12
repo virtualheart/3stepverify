@@ -1,7 +1,7 @@
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
+import consents.consent;
 
 /**
  *
@@ -9,13 +9,15 @@ import javax.swing.JOptionPane;
  */
 public class DBconnect {
     	public Connection connect() {
-			
+            
 		Connection con = null;
-		String dbname = "security";
+                consent c = new consent();
+                
+		String dbname = c.database;
 
 		String url = "jdbc:mysql://localhost/" + dbname;
-		String user = "smk";
-		String pass = "";
+		String user = c.username;
+		String pass = c.password;
 		
 		try {
 			

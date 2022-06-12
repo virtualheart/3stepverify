@@ -1,30 +1,7 @@
-import com.sun.activation.viewers.ImageViewer;
 import dataset.AesEncryption;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Array;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileSystemView;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -34,7 +11,7 @@ import javax.swing.filechooser.FileSystemView;
 
 /**
  *
- * @author PERUMAL
+ * @author SMK
  */
 public class Register1 extends javax.swing.JFrame {
 String a2="";int id,c=0;
@@ -128,7 +105,7 @@ String a2="";int id,c=0;
         jLabel19.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel19.setText("Question");
         jPanel1.add(jLabel19);
-        jLabel19.setBounds(50, 150, 60, 20);
+        jLabel19.setBounds(50, 150, 70, 20);
 
         jLabel20.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel20.setText("Answer");
@@ -183,8 +160,6 @@ String a2="";int id,c=0;
 
     AesEncryption asc=new AesEncryption();
                   
-           // Class.forName("com.mysql.jdbc.Driver");
-           // Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
                       
             DBconnect co=new DBconnect();
             Connection con=co.connect(); 
@@ -204,7 +179,7 @@ String a2="";int id,c=0;
                 JOptionPane.showMessageDialog(null,"Added Successfully");
 //                Register2 rs=new Register2(a2);
 //                rs.setVisible(true);
-      new test(a2);
+                  new test(a2);
             }else{
                 this.setVisible(true);
                 JOptionPane.showMessageDialog(null,"Added Failed");

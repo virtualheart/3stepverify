@@ -1,5 +1,5 @@
+import consents.consent;
 import dataset.AESDecryption;
-import dataset.AesEncryption;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.PixelGrabber;
@@ -11,10 +11,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Properties;
 import java.util.Random;
 import javax.swing.JFileChooser;
@@ -36,8 +32,10 @@ String a2="";
      * Creates new form Register
      */
     public Home2(String a1) {
-         a2=a1;
+        a2=a1;
         initComponents();
+        consent c = new consent();
+        this.setTitle(c.appname);
     }
 
     /**

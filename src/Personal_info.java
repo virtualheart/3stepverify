@@ -1,14 +1,25 @@
+import consents.consent;
+import dataset.AESDecryption;
+import dataset.AesEncryption;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author smk
  */
 public class Personal_info extends javax.swing.JPanel {
+   
+        String a2="";
 
-    /**
-     * Creates new form Personal_info
-     */
-    public Personal_info() {
+    public Personal_info(String a1) {
+        this.a2 = a1;
         initComponents();
+       
     }
 
     /**
@@ -20,19 +31,119 @@ public class Personal_info extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel17 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+
+        jLabel17.setBackground(new java.awt.Color(0, 204, 204));
+        jLabel17.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(51, 0, 153));
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("Personal Info");
+        jLabel17.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+        jLabel1.setText(":");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(150, 160, 10, 22);
+        jLabel1.getAccessibleContext().setAccessibleParent(jLabel17);
+
+        jLabel2.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+        jLabel2.setText("Balance");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(60, 160, 70, 22);
+
+        jLabel3.setFont(new java.awt.Font("DejaVu Sans Condensed", 3, 18)); // NOI18N
+        jLabel3.setText("SMK");
+        jLabel3.setToolTipText("");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(210, 80, 120, 30);
+        jLabel3.getAccessibleContext().setAccessibleName("d");
+        jLabel3.getAccessibleContext().setAccessibleParent(jLabel1);
+
+        jLabel4.setFont(new java.awt.Font("Cantarell", 3, 15)); // NOI18N
+        jLabel4.setText("10000.00");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(210, 160, 120, 30);
+
+        jLabel5.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+        jLabel5.setText("Name");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(60, 80, 70, 22);
+
+        jLabel6.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+        jLabel6.setText(":");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(150, 80, 10, 22);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void display(){
+        
+        try{
+            AesEncryption asc=new AesEncryption();
+            AESDecryption dsc=new AESDecryption();
+
+            
+         DBconnect co=new DBconnect();
+         Connection con=co.connect();
+            
+         Statement st=con.createStatement();
+         ResultSet rs1= st.executeQuery("select * from register where account='"+a2+"'");
+         
+         String name = dsc.toDeycrypt(rs1.getString("name"));
+         System.out.print(name);
+         
+         
+         
+        } catch(SQLException e){
+            e.getMessage();
+        }
+    }
+           
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+ 
 }

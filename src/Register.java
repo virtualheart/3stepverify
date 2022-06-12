@@ -1,25 +1,10 @@
 
-import com.sun.activation.viewers.ImageViewer;
 import dataset.AesEncryption;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Array;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileSystemView;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -87,6 +72,8 @@ public class Register extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jNameField3 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -103,9 +90,9 @@ public class Register extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel2.setText("Name");
+        jLabel2.setText("Email");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(10, 110, 80, 30);
+        jLabel2.setBounds(40, 110, 80, 30);
 
         jButton1.setBackground(new java.awt.Color(0, 204, 204));
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -153,7 +140,7 @@ public class Register extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel5.setText("LEVEL 1");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(10, 240, 80, 30);
+        jLabel5.setBounds(30, 240, 80, 30);
 
         jPasswordField2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -189,9 +176,9 @@ public class Register extends javax.swing.JFrame {
         jPasswordField1.setBounds(150, 160, 330, 30);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel4.setText("RETYPE ACCOUNT NO");
+        jLabel4.setText("RETYPE ACC NO");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(0, 190, 150, 50);
+        jLabel4.setBounds(30, 190, 150, 50);
 
         jPasswordField3.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -218,7 +205,7 @@ public class Register extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("LEVEL 2");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(10, 290, 80, 30);
+        jLabel6.setBounds(30, 290, 80, 30);
         jPanel1.add(jTextField1);
         jTextField1.setBounds(250, 290, 70, 30);
 
@@ -237,7 +224,7 @@ public class Register extends javax.swing.JFrame {
         jLabel7.setText("REGISTRATION FORM");
         jLabel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(40, 30, 430, 40);
+        jLabel7.setBounds(40, 20, 430, 40);
 
         jPasswordField5.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -291,15 +278,29 @@ public class Register extends javax.swing.JFrame {
 
         jNameField3.setToolTipText("Name");
         jPanel1.add(jNameField3);
-        jNameField3.setBounds(150, 110, 330, 30);
+        jNameField3.setBounds(150, 70, 330, 30);
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel8.setText("ACCOUNT NO");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(10, 150, 120, 30);
+        jLabel8.setBounds(30, 160, 120, 30);
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel9.setText("Name");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(40, 70, 80, 30);
+
+        jTextField3.setToolTipText("");
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextField3);
+        jTextField3.setBounds(150, 115, 330, 30);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(570, 90, 500, 540);
+        jPanel1.setBounds(570, 100, 500, 540);
 
         jLabel17.setBackground(new java.awt.Color(0, 204, 204));
         jLabel17.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -360,8 +361,8 @@ public class Register extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
             int bn=0;
-    AesEncryption asc=new AesEncryption();
-   String status="Active",amt="5000";
+            AesEncryption asc=new AesEncryption();
+            String status="Active",amt="0000";
               
           //  Class.forName("com.mysql.jdbc.Driver");
           //  Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
@@ -372,12 +373,10 @@ public class Register extends javax.swing.JFrame {
             
             Statement st=con.createStatement();
             Statement ob=con.createStatement();
+            
       if((jPasswordField1.getText().equals(""))||(jPasswordField2.getText().equals(""))||(jPasswordField3.getText().equals(""))||(jPasswordField4.getText().equals(""))||(jPasswordField5.getText().equals(""))||(jTextField1.getText().equals(""))||(jTextField2.getText().equals(""))||(jNameField3.getText().equals(""))){
           
-           
-                JOptionPane.showMessageDialog(null,"Please Enter All Values");
-               
-             
+                JOptionPane.showMessageDialog(null,"Please Enter All Values");   
           
          }else{
             ResultSet rs1=st.executeQuery("select * from register where account='"+asc.toEncrypt(jPasswordField1.getText().getBytes())+"' ");
@@ -385,7 +384,7 @@ public class Register extends javax.swing.JFrame {
            this.setVisible(true);
                 JOptionPane.showMessageDialog(null,"Account number Already Exist");
             }else{
-                 bn=st.executeUpdate("insert into register values('"+jNameField3.getText().toString()+"','"+asc.toEncrypt(jPasswordField1.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField2.getText().getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField5.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField6.getText().getBytes())+"','"+asc.toEncrypt(jTextField1.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField4.getText().getBytes())+"','"+asc.toEncrypt(status.getBytes())+"','"+asc.toEncrypt(amt.getBytes())+"','','','','','','','','','')");
+                 bn=st.executeUpdate("insert into register values('"+jNameField3.getText().toString()+"','"+asc.toEncrypt(jTextField3.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField1.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField2.getText().getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField5.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField6.getText().getBytes())+"','"+asc.toEncrypt(jTextField1.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField4.getText().getBytes())+"','"+asc.toEncrypt(status.getBytes())+"','"+asc.toEncrypt(amt.getBytes())+"','','','','','','','','','')");
             
             if(bn==1){
                 this.setVisible(false);
@@ -398,13 +397,7 @@ public class Register extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Added Failed");
             } 
             }
-      }
-            
-               
-              
-            
-                             
-                            
+      }             
         }catch(Exception ex){
             ex.printStackTrace();
         }
@@ -500,11 +493,7 @@ public class Register extends javax.swing.JFrame {
             int bn=0;
 
     AesEncryption asc=new AesEncryption();
-                  
-           // Class.forName("com.mysql.jdbc.Driver");
-           //  Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
-           
-            
+                             
             DBconnect co=new DBconnect();
             Connection con=co.connect();
             
@@ -535,6 +524,10 @@ public class Register extends javax.swing.JFrame {
         Home rs=new Home();
         rs.setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -573,15 +566,10 @@ public class Register extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -595,6 +583,7 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -608,5 +597,6 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField6;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

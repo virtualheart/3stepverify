@@ -12,12 +12,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
-import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -28,11 +25,7 @@ public class Test1  extends JFrame implements ActionListener{
 String e="";
     public Test1(int i,String b) throws IOException {
        try{
-//        Connection con;
-//            String url = "jdbc:mysql://localhost:3306/security";
-//            String driver = "com.mysql.jdbc.Driver";
-//            Class.forName(driver);
-//            con = DriverManager.getConnection(url, "root", "root");
+//        
             DBconnect co=new DBconnect();
             Connection con=co.connect();
             smt = con.createStatement();
@@ -60,7 +53,7 @@ String e="";
            
         //JPanel panel = new JPanel();
         //JLabel label = new JLabel(image);
-        ImageBuffer im=new ImageBuffer(bi,e,s);
+        ImageBuffer im=new ImageBuffer(bi,e,s,f);
       //  panel.add(label);
         //panel.add(button);
         f.setContentPane(im);

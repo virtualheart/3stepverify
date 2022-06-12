@@ -2,12 +2,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -110,7 +107,9 @@ public class test11 implements ActionListener {
         try {
             f.setVisible(false);
             f.dispose();
-            new Test111(Integer.parseInt(e.getActionCommand()),c);
+            Test111 test111 = new Test111(Integer.parseInt(e.getActionCommand()),c);
+            
+            
             
             System.out.println(e.getActionCommand());
         } catch (IOException ex) {

@@ -120,7 +120,7 @@ String a2="";
             }
         });
         getContentPane().add(jButton5);
-        jButton5.setBounds(850, 110, 100, 40);
+        jButton5.setBounds(850, 110, 110, 40);
 
         jButton6.setBackground(new java.awt.Color(51, 204, 255));
         jButton6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -232,6 +232,7 @@ sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
         atm rs11=new atm(a2);
                 rs11.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
