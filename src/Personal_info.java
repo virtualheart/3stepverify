@@ -1,25 +1,57 @@
+
 import consents.consent;
 import dataset.AESDecryption;
 import dataset.AesEncryption;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.SwingUtilities;
+import javax.swing.JFrame;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 /**
  *
- * @author smk
+ * @author PERUMAL
  */
-public class Personal_info extends javax.swing.JPanel {
-   
-        String a2="";
+public class Personal_info extends javax.swing.JFrame {
+String a2="";
+consent c;
 
+    /**
+     * Creates new form Register
+     */
     public Personal_info(String a1) {
-        this.a2 = a1;
+        a2=a1;
         initComponents();
-       
+        c= new consent();
+        this.setTitle(c.appname);
+                
+           try{
+               
+            AesEncryption asc=new AesEncryption();
+            AESDecryption dsc=new AESDecryption();
+
+            DBconnect co=new DBconnect();
+            Connection con=co.connect();
+            
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery("select * from register where account='"+asc.toEncrypt(a2.getBytes())+"'");
+           
+            if(rs.next()){
+                System.out.print(rs.getString("name"));
+                
+                this.name.setText(rs.getString("name"));
+                this.mail.setText(rs.getString("email"));
+                this.bal.setText(dsc.toDeycrypt(rs.getString("amount")));
+            }
+            
+          } catch(Exception e){
+              e.getMessage();
+          }
     }
 
     /**
@@ -31,14 +63,96 @@ public class Personal_info extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel17 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        mail = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        name = new javax.swing.JLabel();
+        bal = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(153, 204, 255));
+        setMaximizedBounds(new java.awt.Rectangle(100, 100, 1500, 700));
+        setMinimumSize(new java.awt.Dimension(1100, 700));
+        getContentPane().setLayout(null);
+
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setAutoscrolls(true);
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        jLabel1.setText("Name");
+        jLabel1.setAutoscrolls(true);
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(100, 90, 80, 30);
+
+        jLabel2.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        jLabel2.setText("Balance");
+        jLabel2.setAutoscrolls(true);
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(100, 150, 70, 30);
+
+        jLabel3.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        jLabel3.setText("Mail");
+        jLabel3.setAutoscrolls(true);
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(100, 200, 70, 30);
+
+        mail.setFont(new java.awt.Font("Bitstream Charter", 3, 18)); // NOI18N
+        mail.setText(".");
+        jPanel1.add(mail);
+        mail.setBounds(280, 200, 360, 30);
+
+        jLabel5.setFont(new java.awt.Font("Bitstream Charter", 3, 18)); // NOI18N
+        jLabel5.setText(":");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(220, 200, 30, 23);
+
+        name.setFont(new java.awt.Font("Bitstream Charter", 3, 18)); // NOI18N
+        name.setText(".");
+        jPanel1.add(name);
+        name.setBounds(280, 90, 360, 30);
+
+        bal.setFont(new java.awt.Font("Bitstream Charter", 3, 18)); // NOI18N
+        bal.setText(".");
+        jPanel1.add(bal);
+        bal.setBounds(280, 150, 360, 30);
+
+        jLabel9.setFont(new java.awt.Font("Bitstream Charter", 3, 18)); // NOI18N
+        jLabel9.setText(":");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(220, 90, 30, 23);
+
+        jLabel10.setFont(new java.awt.Font("Bitstream Charter", 3, 18)); // NOI18N
+        jLabel10.setText(":");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(220, 150, 30, 30);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(230, 160, 660, 350);
+
+        jButton5.setBackground(new java.awt.Color(51, 204, 255));
+        jButton5.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jButton5.setText("LOG_OUT");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5);
+        jButton5.setBounds(910, 110, 100, 40);
 
         jLabel17.setBackground(new java.awt.Color(0, 204, 204));
         jLabel17.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -46,103 +160,101 @@ public class Personal_info extends javax.swing.JPanel {
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Personal Info");
         jLabel17.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        getContentPane().add(jLabel17);
+        jLabel17.setBounds(30, 20, 1030, 50);
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel1.setLayout(null);
+        jButton6.setBackground(new java.awt.Color(51, 204, 255));
+        jButton6.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jButton6.setText("BACK");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6);
+        jButton6.setBounds(90, 110, 140, 40);
 
-        jLabel1.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
-        jLabel1.setText(":");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(150, 160, 10, 22);
-        jLabel1.getAccessibleContext().setAccessibleParent(jLabel17);
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
 
-        jLabel2.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
-        jLabel2.setText("Balance");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(60, 160, 70, 22);
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
 
-        jLabel3.setFont(new java.awt.Font("DejaVu Sans Condensed", 3, 18)); // NOI18N
-        jLabel3.setText("SMK");
-        jLabel3.setToolTipText("");
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(210, 80, 120, 30);
-        jLabel3.getAccessibleContext().setAccessibleName("d");
-        jLabel3.getAccessibleContext().setAccessibleParent(jLabel1);
+        setJMenuBar(jMenuBar1);
 
-        jLabel4.setFont(new java.awt.Font("Cantarell", 3, 15)); // NOI18N
-        jLabel4.setText("10000.00");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(210, 160, 120, 30);
-
-        jLabel5.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
-        jLabel5.setText("Name");
-        jPanel1.add(jLabel5);
-        jLabel5.setBounds(60, 80, 70, 22);
-
-        jLabel6.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
-        jLabel6.setText(":");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(150, 80, 10, 22);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
-        );
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void display(){
-        
-        try{
-            AesEncryption asc=new AesEncryption();
-            AESDecryption dsc=new AESDecryption();
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+         this.setVisible(false);
+         this.dispose();
+         
+        Home rs=new Home();
+        rs.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
-            
-         DBconnect co=new DBconnect();
-         Connection con=co.connect();
-            
-         Statement st=con.createStatement();
-         ResultSet rs1= st.executeQuery("select * from register where account='"+a2+"'");
-         
-         String name = dsc.toDeycrypt(rs1.getString("name"));
-         System.out.print(name);
-         
-         
-         
-        } catch(SQLException e){
-            e.getMessage();
-        }
-    }
-           
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        atm rs11=new atm(a2);
+        rs11.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Home().setVisible(true);
+//            }
+//        });
+//    }
+    
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bal;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel mail;
+    private javax.swing.JLabel name;
     // End of variables declaration//GEN-END:variables
 
  

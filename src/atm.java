@@ -1,3 +1,6 @@
+
+import consents.consent;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,12 +13,15 @@
  */
 public class atm extends javax.swing.JFrame {
 String a2="";
+consent c;
     /**
      * Creates new form Register
      */
     public atm(String a1) {
         a2=a1;
         initComponents();
+        c= new consent();
+        this.setTitle(c.appname);
         
     }
 
@@ -130,8 +136,8 @@ String a2="";
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        // this.setVisible(false);
-        // this.dispose();
+         this.setVisible(false);
+         this.dispose();
         Personal_info rs=new Personal_info(a2);
         rs.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed

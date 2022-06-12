@@ -1,8 +1,8 @@
 
+import consents.consent;
 import dataset.AESDecryption;
 import dataset.AesEncryption;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -21,13 +21,16 @@ import javax.swing.JOptionPane;
  */
 public class deposit extends javax.swing.JFrame {
 String a2="";
-
+consent c;
     /**
      * Creates new form Register
      */
     public deposit(String a1) {
         a2=a1;
         initComponents();
+        c= new consent();
+        this.setTitle(c.appname);
+
     }
 
     /**
@@ -54,9 +57,9 @@ String a2="";
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 204, 255));
-        setMaximizedBounds(new java.awt.Rectangle(100, 100, 1500, 700));
-        setMaximumSize(new java.awt.Dimension(1500, 700));
-        setMinimumSize(new java.awt.Dimension(1500, 700));
+        setMaximizedBounds(new java.awt.Rectangle(1100, 700, 1100, 700));
+        setMaximumSize(new java.awt.Dimension(1100, 700));
+        setMinimumSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(null);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -148,9 +151,10 @@ String a2="";
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
      try{
-       AesEncryption asc=new AesEncryption();
+          AesEncryption asc=new AesEncryption();
           AESDecryption dsc=new AESDecryption();
-          int v=0,v1=0,v2=0,v3=0,v4=0,v5=0,v6=0;
+          int v=0,v1=0,v2=0,v3=0,v4=0,v5=0,tid=0;
+          String mail = null; 
        
             DBconnect co=new DBconnect();
             Connection con=co.connect();
@@ -159,37 +163,52 @@ String a2="";
             Statement st=con.createStatement();
             Statement st1=con.createStatement();
             Statement st2=con.createStatement();
-             Date date = new Date();
-SimpleDateFormat sdf;
- String transfer="WITHDRAWN";
-sdf = new SimpleDateFormat("yyyy-MM-dd");
- String a15=sdf.format(date);  
-        ResultSet rs2=st1.executeQuery("select max(tid) from transaction ");
+            Date date = new Date();
+            SimpleDateFormat sdf;
+            
+            String transfer="WITHDRAWN";
+            sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String a15=sdf.format(date);  
+            
+            ResultSet rs2=st1.executeQuery("select max(tid) from transaction ");
             if(rs2.next()){
-          v6=Integer.parseInt(rs2.getString(1))+1;
-              }  
-             ResultSet rs1=st.executeQuery("select * from register where account='"+asc.toEncrypt(a2.getBytes())+"'");
-            if(rs1.next()){
-          v2=Integer.parseInt(dsc.toDeycrypt(rs1.getString(9)));
-              }    
+                tid=Integer.parseInt(rs2.getString(1))+1;
+            }  
+            
+            ResultSet rs1=st.executeQuery("select * from register where account='"+asc.toEncrypt(a2.getBytes())+"'");
+            
+            if(rs1.next()){ 
+                v2=Integer.parseInt(dsc.toDeycrypt(rs1.getString("amount")));
+                mail=rs1.getString("email");
+            }    
+            
             v3=Integer.parseInt(jTextField2.getText());
+            
             v4=v2+v3;
          
               
-               String st6=v4+"";
-            v=st.executeUpdate("insert into transaction values('"+v6+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+"')");
+              String st6=v4+"";
+              v=st.executeUpdate("insert into transaction values('"+tid+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+"')");
               v=st.executeUpdate("update register set amount='"+asc.toEncrypt(st6.getBytes())+"' where account='"+asc.toEncrypt(a2.getBytes())+"'");
-            
+              
+              eMail email = new eMail();
+
             if(v==1){
                 this.setVisible(false);
                 JOptionPane.showMessageDialog(null,"Deposit Successfully");
                 deposit rs11=new deposit(a2);
                 rs11.setVisible(true);
+                                
+                email.send(mail,"Hi " + a2 + ",\n" + c.depmessage +"\n Deposit Amount "+ v3 + "\n Total Amount : " + v4,c.depsubject);
+                
             }else{
                  this.setVisible(false);
                 JOptionPane.showMessageDialog(null,"Deposit Failed");
                 deposit rs11=new deposit(a2);
                 rs11.setVisible(true);
+                
+                email.send(mail,"Hi " + a2 + ",\n" + c.depmessage +"\n Deposit Failed " + "\n Total Amount : " + v4,c.depsubject);
+
             }
           
       }catch(Exception ex){

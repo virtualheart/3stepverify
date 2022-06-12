@@ -307,9 +307,12 @@ String a2="";
         });
     }
     public static void send(String sa,String  msg){  
-          //Get properties object   
-        final String from = "asvperumal@gmail.com";
-		final String password = "Asvp@2300#20";
+          //Get properties object 
+          consent c = new consent();
+          //final String from = "asvperumal@gmail.com";
+          // final String password = "Asvp@2300#20";
+          final String from = c.email;
+          final String password = c.mailpass;
           Properties props = new Properties();    
           props.put("mail.smtp.host", "smtp.gmail.com");    
           props.put("mail.smtp.socketFactory.port", "465");    

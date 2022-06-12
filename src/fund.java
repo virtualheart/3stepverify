@@ -1,8 +1,8 @@
 
+import consents.consent;
 import dataset.AESDecryption;
 import dataset.AesEncryption;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -21,13 +21,17 @@ import javax.swing.JOptionPane;
  */
 public class fund extends javax.swing.JFrame {
 String a2="";
-
+consent c;
+String mail[]=null;
     /**
      * Creates new form Register
      */
     public fund(String a1) {
         a2=a1;
         initComponents();
+        c= new consent();
+        this.setTitle(c.appname);
+
     }
 
     /**
@@ -89,7 +93,7 @@ String a2="";
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(170, 220, 80, 30);
+        jButton1.setBounds(170, 220, 90, 30);
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jButton2.setText("Reset");
@@ -155,11 +159,9 @@ String a2="";
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       try{
-         AesEncryption asc=new AesEncryption();
+          AesEncryption asc=new AesEncryption();
           AESDecryption dsc=new AESDecryption();
           int v=0,v1=0,v2=0,v3=0,v4=0,v5=0;
-//            Class.forName("com.mysql.jdbc.Driver");
-//            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
 
             DBconnect co=new DBconnect();
             Connection con=co.connect();
@@ -167,49 +169,69 @@ String a2="";
             Statement st=con.createStatement();
             Statement st1=con.createStatement();
             Statement st2=con.createStatement();
-             Date date = new Date();
-SimpleDateFormat sdf;
+            Date date = new Date();
+            SimpleDateFormat sdf;
 
-sdf = new SimpleDateFormat("yyyy-MM-dd");
- String a15=sdf.format(date);  
+            sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String a15=sdf.format(date);  
            
-           String transfer="Fund Transfer";
+            String transfer="Fund Transfer";
             v3=Integer.parseInt(jTextField2.getText());
          
         
-              ResultSet rs2=st1.executeQuery("select max(tid) from transaction ");
+            ResultSet rs2=st1.executeQuery("select max(tid) from transaction ");
             if(rs2.next()){
-          v5=Integer.parseInt(rs2.getString(1))+1;
-              }  
+                v5=Integer.parseInt(rs2.getString(1))+1;
+            }  
+            
             v=st.executeUpdate("insert into transaction values('"+v5+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(jTextField1.getText().getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+"')");
-               ResultSet rs=st.executeQuery("select * from register where account='"+asc.toEncrypt(jTextField1.getText().getBytes())+"'");
-            if(rs.next())
-            {
-             v1=Integer.parseInt(dsc.toDeycrypt(rs.getString(9)));
-               }
-              
-              ResultSet rs1=st.executeQuery("select * from register where account='"+asc.toEncrypt(a2.getBytes())+"'");
+            
+            // sender detiles
+            ResultSet rs1=st.executeQuery("select * from register where account='"+asc.toEncrypt(a2.getBytes())+"'");
             if(rs1.next()){
-          v2=Integer.parseInt(dsc.toDeycrypt(rs1.getString(9)));
-              }    
-                v5=v1+v3;
-                String st5=v5+"";
-               v=st.executeUpdate("update register set amount='"+asc.toEncrypt(st5.getBytes())+"' where account='"+asc.toEncrypt(jTextField1.getText().getBytes())+"'");
-                v4=v2-v3;
-                String st6=v4+"";
+                v2=Integer.parseInt(dsc.toDeycrypt(rs1.getString("amount")));
+                mail[1]=rs1.getString("email");
+
+            }   
+            
+            v4=v2-v3;
+            
+        if(v4>0){
+                
+            //reciver detiles
+            ResultSet rs=st.executeQuery("select * from register where account='"+asc.toEncrypt(jTextField1.getText().getBytes())+"'");
+            if(rs.next()){
+                v1=Integer.parseInt(dsc.toDeycrypt(rs.getString("amount")));
+                mail[0]=rs.getString("email");
+            }
+            
+            v5=v1+v3;
+            String st5=v5+"";
+            
+            v=st.executeUpdate("update register set amount='"+asc.toEncrypt(st5.getBytes())+"' where account='"+asc.toEncrypt(jTextField1.getText().getBytes())+"'");
+            v4=v2-v3;  
+            
+            String st6=v4+"";
             v=st.executeUpdate("update register set amount='"+asc.toEncrypt(st6.getBytes())+"' where account='"+asc.toEncrypt(a2.getBytes())+"'");
+            
             if(v==1){
                 this.setVisible(false);
                 JOptionPane.showMessageDialog(null,"Fund Transfered Successfully");
                fund rs11=new fund(a2);
                 rs11.setVisible(true);
             }else{
-                 this.setVisible(false);
+                this.setVisible(false);
                 JOptionPane.showMessageDialog(null,"Fund Transfer Failed");
                 fund rs11=new fund(a2);
                 rs11.setVisible(true);
             }
-          
+            
+        } else{
+                this.dispose();
+                JOptionPane.showMessageDialog(null,"Fund Transfer Failed,You didn't have money ");
+                fund rs11=new fund(a2);
+                rs11.setVisible(true);
+        }  
       }catch(Exception ex){
           ex.printStackTrace();
       }
@@ -218,13 +240,15 @@ sdf = new SimpleDateFormat("yyyy-MM-dd");
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-       Home rs=new Home();
+        this.dispose();
+        Home rs=new Home();
         rs.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
            this.setVisible(false);
+           
                
                 fund rs11=new fund(a2);
                 rs11.setVisible(true);

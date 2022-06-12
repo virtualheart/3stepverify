@@ -1,8 +1,8 @@
 
+import consents.consent;
 import dataset.AESDecryption;
 import dataset.AesEncryption;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -22,13 +22,45 @@ import javax.swing.JOptionPane;
 public class withdraw extends javax.swing.JFrame {
     
      String a2="";
-
+     consent c;
+     String mail = null;
+     AesEncryption asc;
+     AESDecryption dsc;
+     int v2=0;
+     Connection con;
+     Statement st;
     /**
      * Creates new form Register
      */
     public withdraw(String a1) {
         a2=a1;
         initComponents();
+        c= new consent();
+        this.setTitle(c.appname);
+        
+        try{
+            
+          asc=new AesEncryption();
+          dsc=new AESDecryption();
+
+          DBconnect co=new DBconnect();
+          con=co.connect();
+          
+          st=con.createStatement();
+
+
+            ResultSet rs1=st.executeQuery("select * from register where account='"+asc.toEncrypt(a2.getBytes())+"'");
+            if(rs1.next()){
+                v2=Integer.parseInt(dsc.toDeycrypt(rs1.getString("amount")));
+                mail=rs1.getString("email");
+               String val=v2+"";
+                this.curbal.setText(val);
+
+            }   
+        } catch(Exception e){
+            e.getMessage();
+        }
+
     }
 
     /**
@@ -46,6 +78,9 @@ public class withdraw extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        curbal = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
@@ -55,7 +90,7 @@ public class withdraw extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 204, 255));
-        setMaximizedBounds(new java.awt.Rectangle(100, 100, 1500, 700));
+        setMaximizedBounds(new java.awt.Rectangle(1100, 700, 1100, 700));
         setMaximumSize(new java.awt.Dimension(1500, 700));
         setMinimumSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(null);
@@ -71,7 +106,7 @@ public class withdraw extends javax.swing.JFrame {
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(30, 30, 360, 30);
+        jLabel1.setBounds(50, 30, 360, 30);
 
         jButton1.setBackground(new java.awt.Color(0, 153, 153));
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -82,7 +117,7 @@ public class withdraw extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(140, 170, 80, 30);
+        jButton1.setBounds(140, 190, 80, 30);
 
         jButton2.setBackground(new java.awt.Color(0, 153, 153));
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -93,7 +128,7 @@ public class withdraw extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(240, 170, 90, 30);
+        jButton2.setBounds(240, 190, 90, 30);
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,15 +136,30 @@ public class withdraw extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jTextField2);
-        jTextField2.setBounds(160, 100, 210, 30);
+        jTextField2.setBounds(170, 130, 210, 30);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setText("Amount");
+        jLabel6.setText(":");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(40, 100, 110, 40);
+        jLabel6.setBounds(170, 80, 10, 40);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setText("Amount");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(50, 130, 110, 40);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setText("Current Amount");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(50, 80, 120, 40);
+
+        curbal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        curbal.setText(".");
+        jPanel1.add(curbal);
+        curbal.setBounds(190, 80, 190, 40);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(330, 140, 450, 250);
+        jPanel1.setBounds(330, 140, 450, 260);
 
         jButton5.setBackground(new java.awt.Color(51, 204, 255));
         jButton5.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -155,48 +205,59 @@ public class withdraw extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       try{
-          AesEncryption asc=new AesEncryption();
-          AESDecryption dsc=new AESDecryption();
           int v=0,v1=0,v2=0,v3=0,v4=0,v5=0;
-            //Class.forName("com.mysql.jdbc.Driver");
-            //Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/security","root","root");
-                
-            DBconnect co=new DBconnect();
-            Connection con=co.connect();
+          
             
-            Statement st=con.createStatement();
             Statement st1=con.createStatement();
-            Statement st2=con.createStatement();
-             Date date = new Date();
-SimpleDateFormat sdf;
+            Date date = new Date();
+            SimpleDateFormat sdf;
 
- sdf = new SimpleDateFormat("yyyy-MM-dd");
- String a15=sdf.format(date);  
-           String transfer="WITHDRAWN";
-             ResultSet rs1=st.executeQuery("select * from register where account='"+a2+"'");
-            if(rs1.next()){
-          v2=Integer.parseInt(dsc.toDeycrypt(rs1.getString(9)));
-              }    
+            sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String a15=sdf.format(date);  
+            String transfer="WITHDRAWN";
+            
+            
             v3=Integer.parseInt(jTextField2.getText());
+            
             v4=v2-v3;
+
             v5=v1+v3;
-              ResultSet rs2=st1.executeQuery("select max(tid) from transaction ");
+            
+            ResultSet rs2=st1.executeQuery("select max(tid) from transaction ");
             if(rs2.next()){
-          v5=Integer.parseInt(rs2.getString(1))+1;
-              }  
+                v5=Integer.parseInt(rs2.getString(1))+1;
+            }  
               String st5=v5+"";
-               String st6=v4+"";
-            v=st.executeUpdate("insert into transaction values('"+v5+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+"')");
+              String st6=v4+"";
+              v=st.executeUpdate("insert into transaction values('"+v5+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+"')");
+               System.out.println(v4);
+            if(v4>0){
+                
               v=st.executeUpdate("update register set amount='"+asc.toEncrypt(st6.getBytes())+"' where account='"+asc.toEncrypt(a2.getBytes())+"'");
-               
+                        
+            
+              eMail email = new eMail();
+              
             if(v==1){
                 this.setVisible(false);
                 JOptionPane.showMessageDialog(null,"Withdraw Successfully");
              withdraw rs11=new withdraw(a2);
                 rs11.setVisible(true);
+                
+                email.send(mail,"Hi " + a2 + ",\n" + c.withmessage +"\n Withdraw Amount "+ v3 + "\n Total Amount : " + v4,c.withsubject);
+                
             }else{
                  this.setVisible(false);
                 JOptionPane.showMessageDialog(null,"Withdraw Failed");
+                withdraw rs11=new withdraw(a2);
+                rs11.setVisible(true);
+                
+                email.send(mail,"Hi " + a2 + ",\n" + c.withmessage +"\n Withdraw Amount "+ v3 + "\n Total Amount : " + v4,c.withsubject);
+
+            }
+            } else{
+                this.dispose();
+                JOptionPane.showMessageDialog(null,"Withdraw Failed,you didn't have money");
                 withdraw rs11=new withdraw(a2);
                 rs11.setVisible(true);
             }
@@ -268,6 +329,7 @@ SimpleDateFormat sdf;
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel curbal;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
@@ -275,6 +337,8 @@ SimpleDateFormat sdf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

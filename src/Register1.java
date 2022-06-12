@@ -1,3 +1,4 @@
+import consents.consent;
 import dataset.AesEncryption;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -16,12 +17,15 @@ import javax.swing.JOptionPane;
 public class Register1 extends javax.swing.JFrame {
 String a2="";int id,c=0;
  String a,b=null;
+ consent con;
     /**
      * Creates new form Register
      */
     public Register1(String as) {
         a2=as;
         initComponents();
+        con= new consent();
+        this.setTitle(con.appname);
         
         
             

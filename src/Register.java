@@ -1,4 +1,5 @@
 
+import consents.consent;
 import dataset.AesEncryption;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,13 +18,17 @@ import javax.swing.JOptionPane;
  * @author PERUMAL
  */
 public class Register extends javax.swing.JFrame {
-
+    
+    consent c;
     /**
      * Creates new form Register
      */
     public Register() {
         initComponents();
-         Random rand = new Random(); 
+        c= new consent();
+        this.setTitle(c.appname);
+        
+        Random rand = new Random(); 
         int rand_int1 = rand.nextInt(1000); 
         int rand_int2 = rand.nextInt(1000); 
         int rand_int3 = rand.nextInt(1000); 
@@ -384,7 +389,7 @@ public class Register extends javax.swing.JFrame {
            this.setVisible(true);
                 JOptionPane.showMessageDialog(null,"Account number Already Exist");
             }else{
-                 bn=st.executeUpdate("insert into register values('"+jNameField3.getText().toString()+"','"+asc.toEncrypt(jTextField3.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField1.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField2.getText().getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField5.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField6.getText().getBytes())+"','"+asc.toEncrypt(jTextField1.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField4.getText().getBytes())+"','"+asc.toEncrypt(status.getBytes())+"','"+asc.toEncrypt(amt.getBytes())+"','','','','','','','','','')");
+                 bn=st.executeUpdate("insert into register values('"+jNameField3.getText().toString()+"','"+jTextField3.getText().toString() +"','"+asc.toEncrypt(jPasswordField1.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField2.getText().getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField5.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField6.getText().getBytes())+"','"+asc.toEncrypt(jTextField1.getText().getBytes())+"','"+asc.toEncrypt(jPasswordField4.getText().getBytes())+"','"+asc.toEncrypt(status.getBytes())+"','"+asc.toEncrypt(amt.getBytes())+"','','','','','','','','','')");
             
             if(bn==1){
                 this.setVisible(false);
