@@ -20,16 +20,47 @@ import javax.swing.JOptionPane;
  * @author PERUMAL
  */
 public class deposit extends javax.swing.JFrame {
-String a2="";
-consent c;
-    /**
+    String a2="";
+    consent c;
+     String mail = null;
+     AesEncryption asc;
+     AESDecryption dsc;
+     int v2=0;
+     Connection con;
+     Statement st;
+    
+     /**
      * Creates new form Register
      */
-    public deposit(String a1) {
+   
+     public deposit(String a1) {
         a2=a1;
         initComponents();
         c= new consent();
         this.setTitle(c.appname);
+        
+         try{
+            
+          asc=new AesEncryption();
+          dsc=new AESDecryption();
+
+          DBconnect co=new DBconnect();
+          con=co.connect();
+          
+          st=con.createStatement();
+
+
+            ResultSet rs1=st.executeQuery("select * from register where account='"+asc.toEncrypt(a2.getBytes())+"'");
+            if(rs1.next()){
+                v2=Integer.parseInt(dsc.toDeycrypt(rs1.getString("amount")));
+                mail=rs1.getString("email");
+                String val=v2+"";
+                this.curbal.setText(val);
+
+            }   
+        } catch(Exception e){
+            e.getMessage();
+        }
 
     }
 
@@ -46,8 +77,12 @@ consent c;
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        curbal = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
@@ -84,14 +119,14 @@ consent c;
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(180, 150, 80, 30);
+        jButton1.setBounds(150, 190, 90, 30);
         jPanel1.add(jTextField2);
-        jTextField2.setBounds(170, 90, 210, 30);
+        jTextField2.setBounds(170, 130, 210, 30);
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel6.setText("Amount");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(50, 80, 110, 40);
+        curbal.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        curbal.setText(".");
+        jPanel1.add(curbal);
+        curbal.setBounds(170, 80, 250, 40);
 
         jButton3.setBackground(new java.awt.Color(0, 204, 204));
         jButton3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -102,7 +137,27 @@ consent c;
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(270, 150, 90, 30);
+        jButton3.setBounds(250, 190, 90, 30);
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel7.setText("Amount");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(50, 130, 110, 40);
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel8.setText("Balance");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(50, 80, 70, 40);
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel9.setText(":");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(130, 130, 20, 40);
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel10.setText(":");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(130, 80, 20, 40);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(290, 160, 440, 240);
@@ -116,7 +171,7 @@ consent c;
             }
         });
         getContentPane().add(jButton5);
-        jButton5.setBounds(850, 110, 100, 40);
+        jButton5.setBounds(850, 110, 120, 40);
 
         jButton6.setBackground(new java.awt.Color(51, 204, 255));
         jButton6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -151,29 +206,22 @@ consent c;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
      try{
-          AesEncryption asc=new AesEncryption();
-          AESDecryption dsc=new AESDecryption();
-          int v=0,v1=0,v2=0,v3=0,v4=0,v5=0,tid=0;
-          String mail = null; 
-       
-            DBconnect co=new DBconnect();
-            Connection con=co.connect();
+          int v=0,v2=0,v3=0,v4=0,v5=0,tid=0;
 
             
             Statement st=con.createStatement();
             Statement st1=con.createStatement();
-            Statement st2=con.createStatement();
             Date date = new Date();
             SimpleDateFormat sdf;
             
-            String transfer="WITHDRAWN";
+            String transfer="DEPOSIT";
             sdf = new SimpleDateFormat("yyyy-MM-dd");
             String a15=sdf.format(date);  
             
             ResultSet rs2=st1.executeQuery("select max(tid) from transaction ");
             if(rs2.next()){
                 tid=Integer.parseInt(rs2.getString(1))+1;
-            }  
+            }
             
             ResultSet rs1=st.executeQuery("select * from register where account='"+asc.toEncrypt(a2.getBytes())+"'");
             
@@ -270,13 +318,17 @@ consent c;
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel curbal;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
