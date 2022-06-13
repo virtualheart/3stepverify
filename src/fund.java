@@ -22,7 +22,14 @@ import javax.swing.JOptionPane;
 public class fund extends javax.swing.JFrame {
 String a2="";
 consent c;
-String mail[]=null;
+String sendermail=null,recivermail=null;
+AesEncryption asc;
+AESDecryption dsc;
+Connection con;
+Statement st;
+int v2=0,v1=0;
+boolean valid=false;
+String recname,ba;
     /**
      * Creates new form Register
      */
@@ -31,6 +38,34 @@ String mail[]=null;
         initComponents();
         c= new consent();
         this.setTitle(c.appname);
+
+
+        try{
+            DBconnect co=new DBconnect();
+            con=co.connect();
+
+            this.jButton1.setEnabled(false);
+            asc=new AesEncryption();
+            dsc=new AESDecryption();
+            
+               // sender detiles
+            st=con.createStatement();
+
+            ResultSet rs1=st.executeQuery("select * from register where account='"+asc.toEncrypt(a2.getBytes())+"'");
+            if(rs1.next()){
+                v2=Integer.parseInt(dsc.toDeycrypt(rs1.getString("amount")));
+                ba=v2+"";
+                this.bal.setText(ba);
+                
+                sendermail=rs1.getString("email");
+                
+            } 
+
+        } catch(Exception es){
+            es.getMessage();
+        }
+
+
 
     }
 
@@ -45,12 +80,16 @@ String mail[]=null;
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        bal = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
@@ -60,9 +99,9 @@ String mail[]=null;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 204, 255));
-        setMaximizedBounds(new java.awt.Rectangle(100, 100, 1500, 700));
-        setMaximumSize(new java.awt.Dimension(1500, 700));
-        setMinimumSize(new java.awt.Dimension(1500, 700));
+        setMaximizedBounds(new java.awt.Rectangle(100, 700, 1100, 700));
+        setMaximumSize(new java.awt.Dimension(1100, 700));
+        setMinimumSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(null);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -76,14 +115,14 @@ String mail[]=null;
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 30, 420, 40);
+        jLabel1.setBounds(40, 30, 420, 40);
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel2.setText("To Account");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(50, 100, 100, 30);
+        bal.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        bal.setText(".");
+        jPanel1.add(bal);
+        bal.setBounds(220, 90, 200, 30);
         jPanel1.add(jTextField1);
-        jTextField1.setBounds(170, 100, 210, 30);
+        jTextField1.setBounds(170, 130, 210, 30);
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jButton1.setText("Submit");
@@ -93,7 +132,7 @@ String mail[]=null;
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(170, 220, 90, 30);
+        jButton1.setBounds(176, 220, 84, 30);
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jButton2.setText("Reset");
@@ -105,15 +144,40 @@ String mail[]=null;
         jPanel1.add(jButton2);
         jButton2.setBounds(270, 220, 90, 30);
         jPanel1.add(jTextField2);
-        jTextField2.setBounds(170, 160, 210, 30);
+        jTextField2.setBounds(170, 170, 210, 30);
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel6.setText("Amount");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(50, 160, 110, 40);
+        jLabel6.setBounds(50, 170, 110, 40);
+
+        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton3.setText("Validate");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3);
+        jButton3.setBounds(390, 130, 100, 30);
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel3.setText("To Account");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(50, 130, 100, 30);
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel4.setText("Current Balance");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(50, 90, 150, 30);
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel5.setText(":");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(200, 90, 20, 30);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(290, 160, 460, 280);
+        jPanel1.setBounds(290, 160, 500, 280);
 
         jButton5.setBackground(new java.awt.Color(51, 204, 255));
         jButton5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -158,17 +222,14 @@ String mail[]=null;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      try{
-          AesEncryption asc=new AesEncryption();
-          AESDecryption dsc=new AESDecryption();
-          int v=0,v1=0,v2=0,v3=0,v4=0,v5=0;
+      
+        try{
+          
+            int v=0,v3=0,v4=0,v5=0;
 
-            DBconnect co=new DBconnect();
-            Connection con=co.connect();
-
-            Statement st=con.createStatement();
             Statement st1=con.createStatement();
             Statement st2=con.createStatement();
+            Statement st3=con.createStatement();
             Date date = new Date();
             SimpleDateFormat sdf;
 
@@ -186,25 +247,12 @@ String mail[]=null;
             
             v=st.executeUpdate("insert into transaction values('"+v5+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(jTextField1.getText().getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+"')");
             
-            // sender detiles
-            ResultSet rs1=st.executeQuery("select * from register where account='"+asc.toEncrypt(a2.getBytes())+"'");
-            if(rs1.next()){
-                v2=Integer.parseInt(dsc.toDeycrypt(rs1.getString("amount")));
-                mail[1]=rs1.getString("email");
-
-            }   
+   
             
             v4=v2-v3;
             
         if(v4>0){
-                
-            //reciver detiles
-            ResultSet rs=st.executeQuery("select * from register where account='"+asc.toEncrypt(jTextField1.getText().getBytes())+"'");
-            if(rs.next()){
-                v1=Integer.parseInt(dsc.toDeycrypt(rs.getString("amount")));
-                mail[0]=rs.getString("email");
-            }
-            
+                          
             v5=v1+v3;
             String st5=v5+"";
             
@@ -212,7 +260,7 @@ String mail[]=null;
             v4=v2-v3;  
             
             String st6=v4+"";
-            v=st.executeUpdate("update register set amount='"+asc.toEncrypt(st6.getBytes())+"' where account='"+asc.toEncrypt(a2.getBytes())+"'");
+            v=st3.executeUpdate("update register set amount='"+asc.toEncrypt(st6.getBytes())+"' where account='"+asc.toEncrypt(a2.getBytes())+"'");
             
             if(v==1){
                 this.setVisible(false);
@@ -248,18 +296,47 @@ String mail[]=null;
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
            this.setVisible(false);
-           
+           this.dispose();
                
-                fund rs11=new fund(a2);
-                rs11.setVisible(true);
+           fund rs11=new fund(a2);
+           rs11.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
         atm rs11=new atm(a2);
-                rs11.setVisible(true);
+        rs11.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+                  //reciver detiles
+        try{
+            recname = jTextField1.getText();
+            System.out.println("rec name :"+recname);
+            ResultSet rs=st.executeQuery("select * from register where account='"+asc.toEncrypt(recname.getBytes())+"' and account!='"+asc.toEncrypt(a2.getBytes())+"'");
+            System.out.println("select * from register where account='"+asc.toEncrypt(recname.getBytes())+"' and account=!'"+asc.toEncrypt(a2.getBytes())+"'");
+            if(rs.next()){
+                v1=Integer.parseInt(dsc.toDeycrypt(rs.getString("amount")));
+                recivermail=rs.getString("email");
+                valid=true;
+                this.jButton1.setEnabled(true);
+                this.jTextField1.setEditable(false);
+                this.jButton3.setEnabled(false);
+                
+            } else{
+                 JOptionPane.showMessageDialog(null," user "+recname+" not found");
+
+            }
+        }catch(Exception e){
+          e.printStackTrace();
+                this.jTextField1.setText("");
+                this.jTextField1.setEditable(false);
+                this.jButton3.setEnabled(false);
+        }
+  
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,13 +374,17 @@ String mail[]=null;
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bal;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
