@@ -1,5 +1,13 @@
 
 import consents.consent;
+import dataset.AESDecryption;
+import dataset.AesEncryption;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,18 +19,67 @@ import consents.consent;
  *
  * @author PERUMAL
  */
-public class atm extends javax.swing.JFrame {
+public class Trans_history extends javax.swing.JFrame {
 String a2="";
 consent c;
+
     /**
      * Creates new form Register
      */
-    public atm(String a1) {
+    public Trans_history(String a1) {
         a2=a1;
         initComponents();
         c= new consent();
         this.setTitle(c.appname);
-        
+                
+           try{
+               
+            AesEncryption asc=new AesEncryption();
+            AESDecryption dsc=new AESDecryption();
+
+            DBconnect co=new DBconnect();
+            Connection con=co.connect();
+            
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery("select * from transaction where faccount='"+asc.toEncrypt(a2.getBytes())+"'");
+            System.out.println("select * from transaction where faccount='"+asc.toEncrypt(a2.getBytes())+"'");
+           
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+          //  Object[] newIdentifiers = new Object[]{"id", "account ", "cost", "type","date"};
+          //  model.setColumnIdentifiers(newIdentifiers);
+
+          List<String> list= new ArrayList<String>();
+          
+            int id=1;
+            String account, cost ,type ,date,tid;
+            
+            while(rs.next()){
+                
+                account = (dsc.toDeycrypt(rs.getString("faccount")));
+                cost = (dsc.toDeycrypt(rs.getString("cost")));
+                type = (dsc.toDeycrypt(rs.getString("type")));
+                date = (rs.getString("date"));
+                
+                tid = id + "";
+                
+                list.add(tid);
+                list.add(account);
+                list.add(cost);
+                list.add(type);
+                list.add(date);
+                
+              
+              System.out.println(id +" "+ account +" " + cost +" " +  type +" " + date);
+              
+
+              model.addRow(list.toArray());
+              list.clear();
+              id++;
+            }
+            
+          } catch(Exception e){
+              e.getMessage();
+          }
     }
 
     /**
@@ -35,13 +92,11 @@ consent c;
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -54,66 +109,40 @@ consent c;
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setAutoscrolls(true);
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.setLayout(null);
 
-        jButton4.setBackground(new java.awt.Color(51, 204, 255));
-        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton4.setText("Personal info");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton4);
-        jButton4.setBounds(200, 20, 320, 60);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jButton6.setBackground(new java.awt.Color(51, 204, 255));
-        jButton6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton6.setText("WITHDRAW");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+            },
+            new String [] {
+                "Id", "Account", "Cost", "Type", "Date"
             }
-        });
-        jPanel1.add(jButton6);
-        jButton6.setBounds(200, 230, 320, 60);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
-        jButton7.setBackground(new java.awt.Color(51, 204, 255));
-        jButton7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton7.setText("DEPOSIT");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jPanel1.add(jButton7);
-        jButton7.setBounds(200, 300, 320, 60);
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+        }
 
-        jButton8.setBackground(new java.awt.Color(51, 204, 255));
-        jButton8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton8.setText("Transaction History");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton8);
-        jButton8.setBounds(200, 90, 320, 60);
-
-        jButton9.setBackground(new java.awt.Color(51, 204, 255));
-        jButton9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton9.setText("FUND TRANSFER");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton9);
-        jButton9.setBounds(200, 160, 320, 60);
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 10, 980, 420);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(230, 150, 660, 380);
+        jPanel1.setBounds(40, 160, 1000, 440);
 
         jButton5.setBackground(new java.awt.Color(51, 204, 255));
         jButton5.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -130,10 +159,21 @@ consent c;
         jLabel17.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(51, 0, 153));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("THREE FACTOR AUTHENTICATION TO SAFEGUARD AN ONLINE TRANSACTION");
+        jLabel17.setText("Transaction History");
         jLabel17.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         getContentPane().add(jLabel17);
         jLabel17.setBounds(30, 20, 1030, 50);
+
+        jButton6.setBackground(new java.awt.Color(51, 204, 255));
+        jButton6.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jButton6.setText("BACK");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6);
+        jButton6.setBounds(70, 110, 140, 40);
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -146,14 +186,6 @@ consent c;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-         this.setVisible(false);
-         this.dispose();
-        Personal_info rs=new Personal_info(a2);
-        rs.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
          this.setVisible(false);
@@ -165,42 +197,10 @@ consent c;
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-          
-        this.setVisible(false);
         this.dispose();
-
-        withdraw rs=new withdraw(a2);
-        rs.setVisible(true);
-      
+        atm rs11=new atm(a2);
+        rs11.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-         this.setVisible(false);
-         this.dispose();
-
-        deposit rs=new deposit(a2);
-        rs.setVisible(true);
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        this.dispose();
-
-        Trans_history rs=new Trans_history(a2);
-        rs.setVisible(true);
-        
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        this.dispose();
-
-        fund rs=new fund(a2);
-        rs.setVisible(true);
-    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,18 +236,20 @@ consent c;
 //            }
 //        });
 //    }
+    
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+ 
 }

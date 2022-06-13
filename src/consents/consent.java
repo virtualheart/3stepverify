@@ -10,8 +10,8 @@ public class consent {
     public String database = "security";
     
     //mail config
-    public String email = "computersearch4@gmail.com";
-    public String mailpass = "xwhbnzyobbytmjec";
+    public String email = "sangitha195@gmail.com";
+    public String mailpass = "uccytdppnxdtrwr";
     
     //deposit Mail messgae content
     public String depmessage = "Thank you for deposit your money";

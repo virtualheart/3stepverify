@@ -205,7 +205,7 @@ public class withdraw extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       try{
-          int v=0,v1=0,v2=0,v3=0,v4=0,v5=0;
+          int v=0,v1=0,v3=0,v4=0,v5=0;
           
             
             Statement st1=con.createStatement();
@@ -214,8 +214,8 @@ public class withdraw extends javax.swing.JFrame {
 
             sdf = new SimpleDateFormat("yyyy-MM-dd");
             String a15=sdf.format(date);  
-            String transfer="WITHDRAWN";
-            
+            String transfer="WITHDRAWN";  
+
             
             v3=Integer.parseInt(jTextField2.getText());
             
@@ -229,6 +229,7 @@ public class withdraw extends javax.swing.JFrame {
             }  
               String st5=v5+"";
               String st6=v4+"";
+              
               v=st.executeUpdate("insert into transaction values('"+v5+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+"')");
                System.out.println(v4);
             if(v4>0){
