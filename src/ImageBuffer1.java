@@ -249,9 +249,8 @@ import javax.swing.*;
       @Override  
       public void mousePressed(MouseEvent e) {  
             
-          x = e.getX();  
-            
-         y = e.getY();  
+          x = e.getX();
+          y = e.getY();  
           drawCircle(e.getX()-(radius/2), e.getY()-(radius/2));  
             
       }  
@@ -272,8 +271,6 @@ import javax.swing.*;
       public void mouseMoved(MouseEvent e) {  
             setInfo(e);  
             
-      }  
-      
-        
+      }
   }  
         

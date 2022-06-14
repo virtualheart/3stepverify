@@ -1,7 +1,3 @@
-
-
-
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,7 +52,7 @@ public class test_1 implements ActionListener {
            
             Image scaledImage = image.getScaledInstance(300, 200, Image.SCALE_DEFAULT);
             ImageIcon icon = new ImageIcon(scaledImage);
-     button[ii] = new JButton(Integer.toString(j),icon);
+            button[ii] = new JButton(Integer.toString(j),icon);
     
             ip.add( button[ii] );
             
@@ -75,37 +71,9 @@ public class test_1 implements ActionListener {
     }
     
     }
-     public static void main(String[] args) throws Exception {
-    new test_1(b);
-        //          JButton button[]=new JButton[16];
-        //          //BufferedImage image;
-        //        JFrame f = new JFrame("Image Panel");
-        //        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //      // image = ImageIO.read(new File("image/34007.jpg"));
-        //          Toolkit toolkit = Toolkit.getDefaultToolkit();
-        // Image image = toolkit.getImage("image/HD-Nature-Wallpapers-4.jpg");
-        //        JPanel ip = new FireworkPanel();
-        //        ip.setLayout(new GridLayout(4,4,20,20));
-        ////
-        //        ip.setBorder( new EmptyBorder(50,50,50,50) );
-        //       for (int ii=0; ii<16; ii++) {
-        //
-        //
-        //            Image scaledImage = image.getScaledInstance(200, 100, Image.SCALE_DEFAULT);
-        //            ImageIcon icon = new ImageIcon(scaledImage);
-        //     button[ii] = new JButton(icon);
-        //
-        //            ip.add( button[ii] );
-        //
-        //
-        //        }
-        //
-        //        ip.setPreferredSize(new Dimension(640,480));
-        //        f.setContentPane(ip);
-        //        f.pack();
-        //        f.setVisible(true);
-        //ip.setImage( new ImageIcon(image) );
-    }
+    public static void main(String[] args) throws Exception {
+        new test_1(b);
+     }
 
     
 

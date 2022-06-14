@@ -233,30 +233,6 @@ public class Home extends javax.swing.JFrame {
             
             if((v==1)){
            
-//                   ResultSet rs1=st.executeQuery("select * from register where account='"+asc.toEncrypt(jPasswordField2.getText().getBytes())+"' and l1pwd = '"+jPasswordField1.getText()+"'and l1rgd = '"+asc.toEncrypt(jTextField2.getText().getBytes())+"'and l1ver= '"+jPasswordField3.getText()+"' and l2pwd = '"+jPasswordField4.getText()+"'and l2rgd = '"+jTextField2.getText()+"'and l2ver= '"+jPasswordField5.getText()+"'  and status='Active'");
-//            if(rs1.next()){
-//           
-//             v=1;
-//            }
-//                 
-//                    
-//            
-//            if((v==1)){
-//           
-//                JOptionPane.showMessageDialog(null,"Login Successfully");
-//               
-//                 this.setVisible(false);
-//                 Home1 as=new Home1(jPasswordField2.getText());
-//                 as.setVisible(true);
-//            }else{
-//          
-//             
-//                JOptionPane.showMessageDialog(null,"Login Failed");
-//                
-//               this.setVisible(true);
-//            }
-          
-               //String wer=asc.toEncrypt(jPasswordField2.getText().getBytes());
                  this.setVisible(false);
                  Home1 as=new Home1(jPasswordField2.getText());
                  as.setVisible(true);

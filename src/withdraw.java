@@ -245,7 +245,7 @@ public class withdraw extends javax.swing.JFrame {
              withdraw rs11=new withdraw(a2);
                 rs11.setVisible(true);
                 
-                email.send(mail,"Hi " + a2 + ",\n" + c.withmessage +"\n Withdraw Amount "+ v3 + "\n Total Amount : " + v4,c.withsubject);
+                email.send(mail,"Hi " + a2 + ",\n\n" + c.withmessage +"\n\n Withdraw Amount "+ v3 + "\n\n Total Amount : " + v4,c.withsubject);
                 
             }else{
                  this.setVisible(false);
@@ -253,8 +253,6 @@ public class withdraw extends javax.swing.JFrame {
                 withdraw rs11=new withdraw(a2);
                 rs11.setVisible(true);
                 
-                email.send(mail,"Hi " + a2 + ",\n" + c.withmessage +"\n Withdraw Amount "+ v3 + "\n Total Amount : " + v4,c.withsubject);
-
             }
             } else{
                 this.dispose();

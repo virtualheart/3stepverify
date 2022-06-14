@@ -30,6 +30,7 @@ Statement st;
 int v2=0,v1=0;
 boolean valid=false;
 String recname,ba;
+
     /**
      * Creates new form Register
      */
@@ -38,8 +39,7 @@ String recname,ba;
         initComponents();
         c= new consent();
         this.setTitle(c.appname);
-
-
+       
         try{
             DBconnect co=new DBconnect();
             con=co.connect();
@@ -232,6 +232,8 @@ String recname,ba;
             Statement st3=con.createStatement();
             Date date = new Date();
             SimpleDateFormat sdf;
+            
+            eMail email = new eMail();
 
             sdf = new SimpleDateFormat("yyyy-MM-dd");
             String a15=sdf.format(date);  
@@ -247,16 +249,17 @@ String recname,ba;
             
             v=st.executeUpdate("insert into transaction values('"+v5+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(jTextField1.getText().getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+"')");
             
-   
-            
             v4=v2-v3;
             
         if(v4>0){
-                          
+            
+            //reciver   
             v5=v1+v3;
             String st5=v5+"";
             
             v=st.executeUpdate("update register set amount='"+asc.toEncrypt(st5.getBytes())+"' where account='"+asc.toEncrypt(jTextField1.getText().getBytes())+"'");
+           
+            //sender
             v4=v2-v3;  
             
             String st6=v4+"";
@@ -267,6 +270,12 @@ String recname,ba;
                 JOptionPane.showMessageDialog(null,"Fund Transfered Successfully");
                fund rs11=new fund(a2);
                 rs11.setVisible(true);
+                
+                
+                email.send(sendermail,"Hi " + a2 + ",\n\n" + c.fundmgssend +"\n\n Transfer Amount "+ v3 + "\n\n Total Amount : " + v4,c.fundmgssend);
+                email.send(recivermail,"Hi " + recname + ",\n\n" + c.fundmgssend +"\n\n Recived Amount "+ v3 + "\n\n Total Amount : " + v5,c.fundmgssend);
+
+                
             }else{
                 this.setVisible(false);
                 JOptionPane.showMessageDialog(null,"Fund Transfer Failed");

@@ -247,7 +247,7 @@ public class deposit extends javax.swing.JFrame {
                 deposit rs11=new deposit(a2);
                 rs11.setVisible(true);
                                 
-                email.send(mail,"Hi " + a2 + ",\n" + c.depmessage +"\n Deposit Amount "+ v3 + "\n Total Amount : " + v4,c.depsubject);
+                email.send(mail,"Hi " + a2 + ",\n\n" + c.depmessage +"\n\n Deposit Amount "+ v3 + "\n\n Total Amount : " + v4,c.depsubject);
                 
             }else{
                  this.setVisible(false);
@@ -255,8 +255,6 @@ public class deposit extends javax.swing.JFrame {
                 deposit rs11=new deposit(a2);
                 rs11.setVisible(true);
                 
-                email.send(mail,"Hi " + a2 + ",\n" + c.depmessage +"\n Deposit Failed " + "\n Total Amount : " + v4,c.depsubject);
-
             }
           
       }catch(Exception ex){

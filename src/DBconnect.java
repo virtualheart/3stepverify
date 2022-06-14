@@ -28,7 +28,7 @@ public class DBconnect {
 					
 		} catch(Exception e) {
 			e.printStackTrace();
-                        JOptionPane.showMessageDialog(null,"Please Check the Database");
+                        JOptionPane.showMessageDialog(null,"Please Check Your Database");
 
 		}
 		
