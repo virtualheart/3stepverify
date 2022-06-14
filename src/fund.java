@@ -272,8 +272,8 @@ String recname,ba;
                 rs11.setVisible(true);
                 
                 
-                email.send(sendermail,"Hi " + a2 + ",\n\n" + c.fundmgssend +"\n\n Transfer Amount "+ v3 + "\n\n Total Amount : " + v4,c.fundmgssend);
-                email.send(recivermail,"Hi " + recname + ",\n\n" + c.fundmgssend +"\n\n Recived Amount "+ v3 + "\n\n Total Amount : " + v5,c.fundmgssend);
+                email.send(sendermail,"Hi " + a2 + ",\n\n" + c.fundmgssend +"\n\n Transfer Amount "+ v3 + "\n\n Total Amount : " + v4,c.fundsubject);
+                email.send(recivermail,"Hi " + recname + ",\n\n" + c.fundmgsrec +"\n\n Recived Amount "+ v3 + "\n\n Total Amount : " + v5,c.fundsubject);
 
                 
             }else{
