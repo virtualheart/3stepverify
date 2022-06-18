@@ -60,7 +60,7 @@ public class Home extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 204, 255));
-        setMaximizedBounds(new java.awt.Rectangle(1100, 700, 1100, 700));
+        setLocationByPlatform(true);
         setMaximumSize(new java.awt.Dimension(2000, 900));
         setMinimumSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(null);
@@ -181,7 +181,9 @@ public class Home extends javax.swing.JFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/3d-cube-wallpaper_05.jpg"))); // NOI18N
         jLabel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jLabel11.setMaximumSize(new java.awt.Dimension(1000, 524));
+        jLabel11.setMaximumSize(null);
+        jLabel11.setMinimumSize(null);
+        jLabel11.setName(""); // NOI18N
         getContentPane().add(jLabel11);
         jLabel11.setBounds(30, 90, 560, 520);
 

@@ -61,7 +61,7 @@ String a2="";int id,c=0;
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximizedBounds(new java.awt.Rectangle(1100, 700, 1100, 700));
+        setLocationByPlatform(true);
         setMaximumSize(new java.awt.Dimension(1500, 700));
         setMinimumSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(null);

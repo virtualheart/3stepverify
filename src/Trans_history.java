@@ -105,7 +105,6 @@ consent c;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 204, 255));
-        setMaximizedBounds(new java.awt.Rectangle(100, 100, 1500, 700));
         setMinimumSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(null);
 

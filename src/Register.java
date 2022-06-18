@@ -86,7 +86,7 @@ public class Register extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximizedBounds(new java.awt.Rectangle(1100, 700, 1100, 700));
+        setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(null);
 
