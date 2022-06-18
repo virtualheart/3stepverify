@@ -17,12 +17,12 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author PERUMAL
+ * @author Sengetha
  */
 public class deposit extends javax.swing.JFrame {
     String a2="";
     consent c;
-     String mail = null;
+     String mail = null,mailname;
      AesEncryption asc;
      AESDecryption dsc;
      int v2=0;
@@ -54,6 +54,7 @@ public class deposit extends javax.swing.JFrame {
             if(rs1.next()){
                 v2=Integer.parseInt(dsc.toDeycrypt(rs1.getString("amount")));
                 mail=rs1.getString("email");
+                mailname=rs1.getString("name");
                 String val=v2+"";
                 this.curbal.setText(val);
 
@@ -246,7 +247,7 @@ public class deposit extends javax.swing.JFrame {
                 deposit rs11=new deposit(a2);
                 rs11.setVisible(true);
                                 
-                email.send(mail,"Hi " + a2 + ",\n\n" + c.depmessage +"\n\n Deposit Amount "+ v3 + "\n\n Total Amount : " + v4,c.depsubject);
+                email.send(mail,"Hi " + mailname + ",\n\n" + c.depmessage +"\n\n Deposit Amount "+ v3 + "\n\n Total Amount : " + v4,c.depsubject);
                 
             }else{
                  this.setVisible(false);
@@ -270,6 +271,7 @@ public class deposit extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        jTextField2.setText("");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed

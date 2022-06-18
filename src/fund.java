@@ -17,19 +17,19 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author PERUMAL
+ * @author Sengetha
  */
 public class fund extends javax.swing.JFrame {
 String a2="";
 consent c;
-String sendermail=null,recivermail=null;
+String sendermail=null,recivermail=null,mailname,recname,ba,recmailname;
 AesEncryption asc;
 AESDecryption dsc;
 Connection con;
 Statement st;
 int v2=0,v1=0;
 boolean valid=false;
-String recname,ba;
+
 
     /**
      * Creates new form Register
@@ -54,6 +54,8 @@ String recname,ba;
             ResultSet rs1=st.executeQuery("select * from register where account='"+asc.toEncrypt(a2.getBytes())+"'");
             if(rs1.next()){
                 v2=Integer.parseInt(dsc.toDeycrypt(rs1.getString("amount")));
+                mailname=rs1.getString("name");
+
                 ba=v2+"";
                 this.bal.setText(ba);
                 
@@ -123,6 +125,7 @@ String recname,ba;
         jPanel1.add(jTextField1);
         jTextField1.setBounds(170, 130, 210, 30);
 
+        jButton1.setBackground(new java.awt.Color(0, 153, 153));
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jButton1.setText("Submit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +136,7 @@ String recname,ba;
         jPanel1.add(jButton1);
         jButton1.setBounds(176, 220, 84, 30);
 
+        jButton2.setBackground(new java.awt.Color(0, 153, 153));
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jButton2.setText("Reset");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -150,6 +154,7 @@ String recname,ba;
         jPanel1.add(jLabel6);
         jLabel6.setBounds(50, 170, 110, 40);
 
+        jButton3.setBackground(new java.awt.Color(102, 255, 0));
         jButton3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jButton3.setText("Validate");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -271,8 +276,8 @@ String recname,ba;
                 rs11.setVisible(true);
                 
                 
-                email.send(sendermail,"Hi " + a2 + ",\n\n" + c.fundmgssend +"\n\n Transfer Amount "+ v3 + "\n\n Total Amount : " + v4,c.fundsubject);
-                email.send(recivermail,"Hi " + recname + ",\n\n" + c.fundmgsrec +"\n\n Recived Amount "+ v3 + "\n\n Total Amount : " + v5,c.fundsubject);
+                email.send(sendermail,"Hi " + mailname + ",\n\n" + c.fundmgssend +"\n\n Transfer Amount "+ v3 + "\n\n Total Amount : " + v4,c.fundsubject);
+                email.send(recivermail,"Hi " + recmailname + ",\n\n" + c.fundmgsrec +"\n\n Recived Amount "+ v3 + "\n\n Total Amount : " + v5,c.fundsubject);
 
                 
             }else{
@@ -303,11 +308,9 @@ String recname,ba;
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-           this.setVisible(false);
-           this.dispose();
-               
-           fund rs11=new fund(a2);
-           rs11.setVisible(true);
+        jTextField1.setText("");
+        jTextField2.setText("");
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -328,6 +331,7 @@ String recname,ba;
             if(rs.next()){
                 v1=Integer.parseInt(dsc.toDeycrypt(rs.getString("amount")));
                 recivermail=rs.getString("email");
+                recmailname=rs.getString("name");
                 valid=true;
                 this.jButton1.setEnabled(true);
                 this.jTextField1.setEditable(false);

@@ -1,7 +1,7 @@
 package consents;
 /**
  *
- * @author smk
+ * @author Sengetha
  */
 public class consent {
     

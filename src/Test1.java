@@ -18,7 +18,7 @@ import javax.swing.*;
 
 /**
  *
- * @author Perumal S
+ * @author Sengetha
  */
 public class Test1  extends JFrame implements ActionListener{
  Statement smt;

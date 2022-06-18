@@ -5,7 +5,7 @@ import consents.consent;
 
 /**
  *
- * @author smk
+ * @author Sengetha
  */
 public class DBconnect {
     	public Connection connect() {

@@ -5,9 +5,7 @@ import dataset.AesEncryption;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author PERUMAL
+ * @author Sengetha
  */
 public class Trans_history extends javax.swing.JFrame {
 String a2="";
@@ -43,8 +41,8 @@ consent c;
             Connection con=co.connect();
             
             Statement st=con.createStatement();
-            ResultSet rs=st.executeQuery("select * from transaction where faccount='"+asc.toEncrypt(a2.getBytes())+"'");
-            System.out.println("select * from transaction where faccount='"+asc.toEncrypt(a2.getBytes())+"'");
+            ResultSet rs=st.executeQuery("select * from transaction where faccount='"+asc.toEncrypt(a2.getBytes())+"' or taccount='"+asc.toEncrypt(a2.getBytes())+"'");
+            System.out.println("select * from transaction where faccount='"+asc.toEncrypt(a2.getBytes())+"' or taccount='"+asc.toEncrypt(a2.getBytes())+"'");
            
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
           //  Object[] newIdentifiers = new Object[]{"id", "account ", "cost", "type","date"};
@@ -64,12 +62,23 @@ consent c;
                 
                 tid = id + "";
                 
+                if (type.equals("Fund Transfer") && account.equals(a2)){
+                    cost="-"+cost;
+                } else if(type.equals("Fund Transfer") && !account.equals(a2)){
+                    cost="+"+cost;
+                } else if(type.equals("DEPOSIT")){
+                    cost="+"+cost;
+                } else if(type.equals("WITHDRAWN")){
+                    cost="-"+cost;
+                } else{
+                    cost=""+cost;
+                }
+                                
                 list.add(tid);
                 list.add(account);
                 list.add(cost);
                 list.add(type);
                 list.add(date);
-                
               
               System.out.println(id +" "+ account +" " + cost +" " +  type +" " + date);
               

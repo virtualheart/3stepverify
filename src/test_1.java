@@ -21,7 +21,7 @@ import javax.swing.border.EmptyBorder;
 
 /**
  *
- * @author Suresh A
+ * @author Sengetha
  */
 public class test_1 implements ActionListener {
     private static String b;

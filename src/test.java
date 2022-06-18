@@ -1,7 +1,3 @@
-
-
-
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 /**
  *
- * @author Suresh A
+ * @author Sengetha
  */
 public class test implements ActionListener {
     private static String b;

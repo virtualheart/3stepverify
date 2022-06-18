@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Administrator
+ * @author Sengetha
  */
 public class FirePanelTest_1
 {

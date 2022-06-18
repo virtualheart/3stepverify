@@ -211,7 +211,7 @@ import javax.swing.*;
                  atm as=new atm(c);
                  as.setVisible(true);
             } else {
-                  JOptionPane.showMessageDialog(this, "Access Dined !!!");
+                  JOptionPane.showMessageDialog(this, "access denied !!!");
                   
                   amt_input=0;
 

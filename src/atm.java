@@ -9,7 +9,7 @@ import consents.consent;
 
 /**
  *
- * @author PERUMAL
+ * @author Sengetha
  */
 public class atm extends javax.swing.JFrame {
 String a2="";

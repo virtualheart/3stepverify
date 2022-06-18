@@ -10,15 +10,13 @@ import javax.mail.internet.MimeMessage;
 
 /**
  *
- * @author smk
+ * @author Sengetha
  */
 public class eMail {
     
     public static void send(String recmail,String  msg,String sub){  
           //Get properties object 
           consent c = new consent();
-          //final String from = "asvperumal@gmail.com";
-          //final String password = "Asvp@2300#20";
           final String from = c.email;
           final String password = c.mailpass;
           Properties props = new Properties();    

@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author PERUMAL
+ * @author Sengetha
  */
 public class Personal_info extends javax.swing.JFrame {
 String a2="";

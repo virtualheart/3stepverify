@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author SMK
+ * @author Sengetha
  */
 public class Register1 extends javax.swing.JFrame {
 String a2="";int id,c=0;

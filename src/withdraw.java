@@ -1,4 +1,3 @@
-
 import consents.consent;
 import dataset.AESDecryption;
 import dataset.AesEncryption;
@@ -17,13 +16,13 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author PERUMAL
+ * @author Sengetha
  */
 public class withdraw extends javax.swing.JFrame {
     
      String a2="";
      consent c;
-     String mail = null;
+     String mail = null,mailname;
      AesEncryption asc;
      AESDecryption dsc;
      int v2=0;
@@ -53,6 +52,7 @@ public class withdraw extends javax.swing.JFrame {
             if(rs1.next()){
                 v2=Integer.parseInt(dsc.toDeycrypt(rs1.getString("amount")));
                 mail=rs1.getString("email");
+                mailname=rs1.getString("name");
                String val=v2+"";
                 this.curbal.setText(val);
 
@@ -244,7 +244,7 @@ public class withdraw extends javax.swing.JFrame {
              withdraw rs11=new withdraw(a2);
                 rs11.setVisible(true);
                 
-                email.send(mail,"Hi " + a2 + ",\n\n" + c.withmessage +"\n\n Withdraw Amount "+ v3 + "\n\n Total Amount : " + v4,c.withsubject);
+                email.send(mail,"Hi " + mailname + ",\n\n" + c.withmessage +"\n\n Withdraw Amount "+ v3 + "\n\n Total Amount : " + v4,c.withsubject);
                 
             }else{
                  this.setVisible(false);
@@ -278,10 +278,8 @@ public class withdraw extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-           this.dispose();
-              
-                withdraw rs11=new withdraw(a2);
-                rs11.setVisible(true);
+        jTextField2.setText("");
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
