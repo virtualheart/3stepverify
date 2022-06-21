@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author Sengetha
  */
 public class fund extends javax.swing.JFrame {
-String a2="";
+String a2="",status;
 consent c;
 String sendermail=null,recivermail=null,mailname,recname,ba,recmailname;
 AesEncryption asc;
@@ -249,9 +249,10 @@ boolean valid=false;
             ResultSet rs2=st1.executeQuery("select max(tid) from transaction ");
             if(rs2.next()){
                 v5=Integer.parseInt(rs2.getString(1))+1;
-            }  
+            }            
             
-            v=st.executeUpdate("insert into transaction values('"+v5+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(jTextField1.getText().getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+"')");
+            status="success";
+            v=st.executeUpdate("insert into transaction values('"+v5+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(recname.getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+ "','" + asc.toEncrypt(status.getBytes()) +"')");
             
             v4=v2-v3;
             
@@ -261,7 +262,7 @@ boolean valid=false;
             v5=v1+v3;
             String st5=v5+"";
             
-            v=st.executeUpdate("update register set amount='"+asc.toEncrypt(st5.getBytes())+"' where account='"+asc.toEncrypt(jTextField1.getText().getBytes())+"'");
+            v=st.executeUpdate("update register set amount='"+asc.toEncrypt(st5.getBytes())+"' where account='"+asc.toEncrypt(recname.getBytes())+"'");
            
             //sender
             v4=v2-v3;  
@@ -285,6 +286,9 @@ boolean valid=false;
                 JOptionPane.showMessageDialog(null,"Fund Transfer Failed");
                 fund rs11=new fund(a2);
                 rs11.setVisible(true);
+                status="Failed";
+                v = st.executeUpdate("update transaction set status='"+ asc.toEncrypt(status.getBytes()) + "" + "' where tid='" + v5 +"'");
+  
             }
             
         } else{
@@ -292,6 +296,9 @@ boolean valid=false;
                 JOptionPane.showMessageDialog(null,"Fund Transfer Failed,You didn't have money ");
                 fund rs11=new fund(a2);
                 rs11.setVisible(true);
+                status="Failed";
+                v = st.executeUpdate("update transaction set status='"+ asc.toEncrypt(status.getBytes()) + "" + "' where tid='" + v5 +"'");
+
         }  
       }catch(Exception ex){
           ex.printStackTrace();
@@ -310,6 +317,10 @@ boolean valid=false;
         // TODO add your handling code here:
         jTextField1.setText("");
         jTextField2.setText("");
+        jTextField1.setEditable(true);
+        jButton3.setEnabled(true);
+        jButton1.setEnabled(false);
+        
 
     }//GEN-LAST:event_jButton2ActionPerformed
 

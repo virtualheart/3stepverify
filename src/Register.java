@@ -36,7 +36,7 @@ public class Register extends javax.swing.JFrame {
              rdg=rand_int1+"";
              rdg1=rand_int2+"";
              rdg2=rand_int3+"";
-             jTextField2.setText(rdg);
+              jTextField2.setText(rdg);
               jTextField1.setText(rdg1);
            jTextField2.setVisible(false);
            jTextField1.setVisible(false);
@@ -519,6 +519,12 @@ public class Register extends javax.swing.JFrame {
                             
         }catch(Exception ex){
             ex.printStackTrace();
+             if(ex.getMessage().contains("Duplicate entry") 
+            && ex.getMessage().contains("for key")){
+                JOptionPane.showMessageDialog(null,"Added Failed");
+
+             }
+
         }
     }//GEN-LAST:event_jPasswordField1FocusLost
 

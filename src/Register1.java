@@ -117,6 +117,12 @@ String a2="";int id,c=0;
         jLabel20.setBounds(50, 210, 60, 20);
         jPanel1.add(jTextField10);
         jTextField10.setBounds(130, 140, 300, 30);
+
+        jTextField11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField11ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jTextField11);
         jTextField11.setBounds(130, 200, 300, 30);
 
@@ -204,6 +210,10 @@ String a2="";int id,c=0;
             Register rs11=new Register();
                 rs11.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField11ActionPerformed
 
     /**
      * @param args the command line arguments

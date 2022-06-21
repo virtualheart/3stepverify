@@ -51,7 +51,7 @@ consent c;
           List<String> list= new ArrayList<String>();
           
             int id=1;
-            String account, cost ,type ,date,tid;
+            String account, cost ,type ,date,tid,status;
             
             while(rs.next()){
                 
@@ -59,6 +59,7 @@ consent c;
                 cost = (dsc.toDeycrypt(rs.getString("cost")));
                 type = (dsc.toDeycrypt(rs.getString("type")));
                 date = (rs.getString("date"));
+                status = (dsc.toDeycrypt(rs.getString("status")));
                 
                 tid = id + "";
                 
@@ -79,6 +80,7 @@ consent c;
                 list.add(cost);
                 list.add(type);
                 list.add(date);
+                list.add(status);
               
               System.out.println(id +" "+ account +" " + cost +" " +  type +" " + date);
               
@@ -128,11 +130,11 @@ consent c;
 
             },
             new String [] {
-                "Id", "Account", "Cost", "Type", "Date"
+                "Id", "Account", "Cost", "Type", "Date", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

@@ -8,6 +8,7 @@ import consents.consent;
  * @author Sengetha
  */
 public class DBconnect {
+    
     	public Connection connect() {
             
 		Connection con = null;
@@ -23,7 +24,7 @@ public class DBconnect {
 			
 			con = DriverManager.getConnection(url,user,pass);
 			if(con!=null) {
-				return con;
+                            return con;
 			} 
 					
 		} catch(Exception e) {

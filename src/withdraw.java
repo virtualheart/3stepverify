@@ -214,6 +214,7 @@ public class withdraw extends javax.swing.JFrame {
             sdf = new SimpleDateFormat("yyyy-MM-dd");
             String a15=sdf.format(date);  
             String transfer="WITHDRAWN";  
+            String status;
 
             
             v3=Integer.parseInt(jTextField2.getText());
@@ -228,9 +229,10 @@ public class withdraw extends javax.swing.JFrame {
             }  
               String st5=v5+"";
               String st6=v4+"";
+              status="success";
               
-              v=st.executeUpdate("insert into transaction values('"+v5+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+"')");
-               System.out.println(v4);
+              v=st.executeUpdate("insert into transaction values('"+v5+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+ "','" + asc.toEncrypt(status.getBytes()) +"')");
+              System.out.println(v4);
             if(v4>0){
                 
               v=st.executeUpdate("update register set amount='"+asc.toEncrypt(st6.getBytes())+"' where account='"+asc.toEncrypt(a2.getBytes())+"'");
@@ -251,6 +253,9 @@ public class withdraw extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Withdraw Failed");
                 withdraw rs11=new withdraw(a2);
                 rs11.setVisible(true);
+                status="Failed";
+                v = st.executeUpdate("update transaction set status='"+ asc.toEncrypt(status.getBytes()) + "" + "' where tid='" + v5 +"'");
+  
                 
             }
             } else{
@@ -258,6 +263,9 @@ public class withdraw extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Withdraw Failed,you didn't have money");
                 withdraw rs11=new withdraw(a2);
                 rs11.setVisible(true);
+                status="Failed";
+                v = st.executeUpdate("update transaction set status='"+ asc.toEncrypt(status.getBytes()) + "" + "' where tid='" + v5 +"'");
+  
             }
           
       }catch(Exception ex){

@@ -236,7 +236,8 @@ public class deposit extends javax.swing.JFrame {
          
               
               String st6=v4+"";
-              v=st.executeUpdate("insert into transaction values('"+tid+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+"')");
+              String status="success";
+              v=st.executeUpdate("insert into transaction values('"+tid+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(a2.getBytes())+"','"+asc.toEncrypt(jTextField2.getText().getBytes())+"','"+asc.toEncrypt(transfer.getBytes())+"','"+a15+"','" + asc.toEncrypt(status.getBytes())+"')");
               v=st.executeUpdate("update register set amount='"+asc.toEncrypt(st6.getBytes())+"' where account='"+asc.toEncrypt(a2.getBytes())+"'");
               
               eMail email = new eMail();
@@ -254,7 +255,9 @@ public class deposit extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Deposit Failed");
                 deposit rs11=new deposit(a2);
                 rs11.setVisible(true);
-                
+                status="Failed";
+                v = st.executeUpdate("update transaction set status='"+ asc.toEncrypt(status.getBytes()) + "" + "' where tid='" + tid +"'");
+  
             }
           
       }catch(Exception ex){

@@ -236,6 +236,7 @@ public class Home extends javax.swing.JFrame {
             if((v==1)){
            
                  this.setVisible(false);
+                 this.dispose();
                  Home1 as=new Home1(jPasswordField2.getText());
                  as.setVisible(true);
             }else{
